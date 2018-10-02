@@ -1,0 +1,57 @@
+---
+title: "Introduction to R Markdown"
+author: "Tingting"
+date: "Wednesday, September 23, 2015"
+output: html_document
+---
+
+# 1. Variables
+
+<!-- First we learnt how to create and set values to variables in R. -->
+
+[//]:(lalal lal alk)
+
+```{r}
+x<-1
+y=2
+3-> z
+
+(x+y)*z
+```
+
+# 2. Vectors
+
+Next we learnt vectors and their operations.
+
+```{r}
+x <- c(0,1,2,3,4)
+x
+
+y <- seq(1,5)
+y
+
+y <- 1:6 
+y
+
+z<- 1: 50
+z
+
+u <- seq(0,1,length=10)
+u
+```
+
+# 3. Plots
+
+## 3.1. Embedding plots 
+You can also embed plots, for example:
+
+```{r, echo=FALSE}
+plot(cars)
+```
+
+## 3.2. Echo parameter
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot, which is following:
+
+```{r}
+plot(cars)
+```

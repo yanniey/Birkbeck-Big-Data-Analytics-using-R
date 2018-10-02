@@ -1,0 +1,37 @@
+---
+title: "Lesson 1"
+author: "Anyi Guo"
+date: "01/10/2018"
+output: html_document
+---
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+
+• Create a vector x
+– starting from 5.3
+– ending at 8.00
+– length is 10 
+
+```{r}
+x<- seq(5.3,8, length = 10)
+```
+
+Create another vector y
+– starting from 3.5
+– ending at or less than 7.9
+– each term is 0.4 more than the previous one
+y= 3.5, 3.9, 4.3, …
+
+```{r}
+y<-seq(3.5, 7.9, by= 0.4)
+```
+
+
+Slide 16: Creating matrix B
+```{r}
+data<-matrix(1:40,4,10,byrow=TRUE)
+data[,-c(2,4,6,8,10)]
+```
