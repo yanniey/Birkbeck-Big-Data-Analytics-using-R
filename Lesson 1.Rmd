@@ -34,4 +34,11 @@ Slide 16: Creating matrix B
 ```{r}
 data<-matrix(1:40,4,10,byrow=TRUE)
 data[,-c(2,4,6,8,10)]
+data[c(2,4),c(3,5)]
+```
+Slide 16: Creating matrix C
+
+```{r}
+a<-matrix(c(1),1,1)
+a<-matrix(c(1,1),1,2,byrow=TRUE)
 ```
