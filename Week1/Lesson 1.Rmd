@@ -1,0 +1,69 @@
+---
+title: "Lesson 1 - Big Data Analytics using R"
+author: "Anyi Guo"
+date: "01/10/2018"
+output: html_document
+---
+
+• Create a vector x
+– starting from 5.3
+– ending at 8.00
+– length is 10 
+
+```{r}
+x<- seq(5.3,8, length = 10)
+```
+
+Create another vector y
+– starting from 3.5
+– ending at or less than 7.9
+– each term is 0.4 more than the previous one
+y= 3.5, 3.9, 4.3, …
+
+```{r}
+y<-seq(3.5, 7.9, by= 0.4)
+```
+
+
+Slide 16: Creating matrix B
+```{r}
+data<-matrix(1:40,4,10,byrow=TRUE)
+data[,-c(2,4,6,8,10)]
+data[c(2,4),c(3,5)]
+```
+Slide 16: Creating matrix C
+
+```{r}
+a<-matrix(c(1),1,1)
+a<-matrix(c(1,1),1,2,byrow=TRUE)
+```
+
+Use set.seed() to generate random numbers
+
+Use fix() to view data in a spreadsheet like window. The window must be closed before
+further R commands can be entered. 
+
+dim() to see the dimension of the dataset
+
+na.omit() to remove rows with missing values
+```{r}
+Auto = na.omit(Auto)
+```
+
+search() to see currently loaded packages
+
+removes element x in the environment
+```{r}
+rm(x)
+```
+remove everything loaded in the environment
+
+```{r}
+rm(list=ls())
+```
+
+lapply(target item, function to apply)
+sapply(target item, function to apply)
+
+Difference between lapply() and sapply():
+lapply() returns a list, but sapply returns a vector (which is on the same line) which is a simplified version of this list
