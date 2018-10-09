@@ -1,0 +1,131 @@
+---
+title: "Lab 1 - Intro to R"
+author: "Anyi Guo"
+date: "09/10/2018"
+output: word_document
+---
+
+# Vectors
+1.Create a vector u that has values -10, -9, -8,. . . ,0. How many different ways can you use?
+```{r}
+u<- -10:0
+u<-seq(-10,0)
+```
+2.Create another vector v that has values -0.1, 0.4, 0.9, 1.4, . . . , and there are 11 numbers (aka terms) in v. How many different ways can you use?
+
+```{r}
+v<-seq(-0.1, by=0.5,length=11)
+```
+3.Calculate the vector of u+v and u∗v.
+```{r}
+u+v
+u*v
+```
+4.Increase all terms in u by 1, and then take away 20% from all terms in v.
+```{r}
+u<-u+1
+v<-v*0.8
+```
+5.Create a vector w that contains all the numbers from u and then v. Assign the length of w to a variable len.
+```{r}
+w = c(u,v)
+```
+
+6.Use a command to return the 14th, 15th and 16th value of w. What about the 2nd, the 5th, 9th and 21st value of w? What is the 23rd value? 
+```{r}
+w[14:16]
+w[c(2,5,9,21)]
+w[23]
+```
+
+7.Replace the 3rd term of w by 100. Then replace the 7th, 15th and 22nd terms by 200, 300 and 400 simultaneously.
+```{r}
+w[3]<-100
+w[c(7,15,22)]<-c(200,300,400)
+```
+
+8.Remove u.
+```{r}
+rm(u)
+```
+
+9.Remove all the objects in the environment.
+```{r}
+rm(list=ls())
+```
+
+## Optional exercises
+10.Create a vector p of the values of ex cos(x) at x = 3, 3.1, 3.2, ..., 6.
+```{r}
+n<-seq(3,6,by=0.1)
+p<-exp(n)*cos(n)
+```
+
+11.Find the maximum/minimum value in p and the index (position) of that value in p.
+```{r}
+max(p)
+min(p)
+mat<-matrix(p)
+
+```
+which(mat==max(p))
+which(mat==min(p))
+
+12.Sort p in the descending order.
+```{r}
+sort(p,TRUE)
+```
+
+13.Create(4,6,3,4,6,3,. . . ,4,6,3)wherethereare10occurrencesof4.
+```{r}
+li<- c(4,6,3)
+l13<-rep(li,10)
+```
+
+14.Create(4,4,. . . ,4,6,6,. . . ,6,3,3,. . . ,3)wherethereare10occurrencesof4,20occurrences of 6 and 30 occurrences of 3.
+```{r}
+l14<-c(rep(4,10),rep(6,20),rep(3,30))
+```
+
+# Matrics
+First list is for rows, second list is for columns.
+```{r}
+a_matrix<-matrix(1:12,nrow=4,dimnames = list(c("one","two","three","four"),c("eins","zwei","drei")))
+```
+
+1.Create the following matrix and assign it to the variable b_matrix.
+```{r}
+b_matrix<-matrix(1:40,nrow= 4,byrow=TRUE)
+b_matrix<-b_matrix[,c(1,3,5,7,9)]
+dimnames(b_matrix)<-list(c("A","B","C","D"),c("a","b","c","d","e"))
+```
+
+2.Extract a sub-matrix from b_matrix named subB as follows. Try to use as many possible ways as you can (positive and negative indices).
+```{r}
+subB<-b_matrix[c(1,2,4),c(2,3)]
+```
+
+3.In R, %*% is an operator for matrix multiplication. Compute a_matrix %*% b_matrix and a_matrix %*% subB. Discuss the results you get from R.
+```{r}
+#a_matrix %*% b_matrix
+a_matrix %*% subB
+```
+
+4.Create three vectors x,y,z with integers and each vector has 3 elements. Combine the three vectors to become a 3 × 3 matrix A where each column represents a vector. Change the row names to a,b,c.
+
+```{r}
+x<-c(1,2,3)
+y<-c(4,5,6)
+z<-c(7,8,9)
+mat2<-matrix(c(x,y,z),nrow=3)
+dimnames(mat2)<-list(c("a","b","c"))
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+

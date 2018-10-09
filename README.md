@@ -7,6 +7,7 @@ Summary:
 Feedback:
 
 ## Week 1: Introduction to R
+**rm(list=ls())** removes everything in the environment
 
 ## Week 2: Descriptive statistics
 Descriptive Analysis
@@ -48,7 +49,7 @@ covariance of X and Y /
 
 
 
-#### In R
+#### 5. In R
 1. **var()** and **sd()** in R uses *n-1* as denominator. 
 2. Interquartile Range is Q3 - Q1
 3. **set.seed(m)** reproduces the exact same set of random numbers as long as the arbitrary integer argument m stays the same.
@@ -56,7 +57,7 @@ covariance of X and Y /
   * n: sample size
   * default mean=0 and sd=1
   * each time different
-  
+
 ## Week 3 and onwards: Inferential statistics
 
 
