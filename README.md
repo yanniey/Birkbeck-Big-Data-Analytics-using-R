@@ -4,7 +4,17 @@
 
 Summary:
 
-Feedback:
+### Syllabus 
+1. Basic Statistics + Linear Regression
+2. Linear Regression
+3. Logistic Regression
+4. Cross Validation
+5. Decision Trees
+6. Ensemble Methods
+7. SVM
+8. Clustering
+9. Dimension Reduction
+10. Applications
 
 ## Week 1: Introduction to R
 **rm(list=ls())** removes everything in the environment

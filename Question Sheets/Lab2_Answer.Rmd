@@ -1,0 +1,106 @@
+---
+title: "Lab2_Answer"
+author: "Anyi Guo"
+date: "09/10/2018"
+output: html_document
+---
+# Lab 2 - Basic Statistics
+1. Use the sample of following observations of variable x to find the values below.
+
+```{r}
+x <- c(10, 2, 15, 6, 4, 9, 12, 11, 3, 0, 12, 10, 9, 7, 11, 10, 8, 5, 10, 6)
+```
+
+        a. n (number of observations)
+        b. sum of all the observations in y
+        c. mean
+        d. median
+        e. mode
+        f. five number summary - Min, Q1, M, Q3, Max
+        g. s2 (sample variance) Is it biased or unbiased?
+        h. s (sample standard deviation)
+
+
+```{r}
+n<-length(x)
+s<-sum(x)
+m1<-mean(x)
+m2<-median(x)
+mode <- function(v) {
+   uniqv <- unique(v)
+   uniqv[which.max(tabulate(match(v, uniqv)))]
+}
+mode(x)
+summary(x)
+v<-var(x)
+s<-sd(x)
+```
+
+2. Create a vector y of random normal variables. Let y be of length 10, with the same mean as x, and standard deviation 1.
+
+```{r}
+y<-rnorm(10,mean=mean(x),sd=1)
+```
+
+  a. Calculate the covariance and correlation between x and y. Can you do that? Why or why not? 
+  
+  <span style="color:blue">Cannot do cov() or cor() as the dimensions of x and y don't match.</span>
+```{r}
+#cov(x,y)
+#cor(x,y)
+```
+
+  b. Now change your y so that it has the same length as x. The mean and standard deviation stay the same. Calculate the covariance and correlation between x and y again.
+```{r}
+y<-rnorm(20,mean=mean(x),sd=1)
+cov(x,y)
+cor(x,y)
+```
+
+  c. Repeat b. several times. Did you get the same result every time? If not, why? What can you do make your result repeatable?
+  
+  <span style="color:blue">Use set.seed() so that the same group of random numbers may be generated every time. </span>
+
+  d. Now pick an integer, say, 63. Run set.seed(63) before the rnorm function. Repeat the two functions for several times and check whether you get the same results from rnorm every time.
+```{r}
+set.seed(63)
+y<-rnorm(20,mean=mean(x),sd=1)
+cov(x,y)
+cor(x,y)
+```
+<span style="color:blue">The results are the same every time after using `set.seed()`</span>
+
+3. In this question, always set seed to be 100.
+
+a. Create z of random normal variables of length 20, mean 8 and SD 1. Plot the scatter plot of x and z. Add the main label, x-label and z-label.
+```{r}
+set.seed(100)
+z<-rnorm(20,mean=8,sd=1)
+plot(x,z,xlab="x-axis",ylab="y-axis",main="Main label")
+```
+b. Change the SD of z to 10 and obtain a new vector u. Plot the corresponding x and u. Draw the points onto the same plot as in 3a, and change the colour and symbol of the points.
+
+```{r}
+set.seed(100)
+u<-rnorm(20,mean=8,sd=10)
+plot(x,u,col="red",pch=2)
+```
+<span style="color:blue">`pch=2` uses triangle as symbol of the points</span>
+
+4. Explore yourself how to plot a boxplot in R. 
+
+a. Plot vector x in boxplot.
+```{r}
+boxplot(x)
+```
+
+b. Plot vector x and y in boxplot and display the result in one plot. See if you can add a label under each boxplot, and add some colour to each box.
+```{r}
+boxplot(x,y,names=c("x-label","y-label"),col=c("red","green"))
+```
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
