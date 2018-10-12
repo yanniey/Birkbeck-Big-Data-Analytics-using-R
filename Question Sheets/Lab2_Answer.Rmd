@@ -2,7 +2,7 @@
 title: "Lab2_Answer"
 author: "Anyi Guo"
 date: "09/10/2018"
-output: html_document
+output: pdf_document
 ---
 # Lab 2 - Basic Statistics
 1. Use the sample of following observations of variable x to find the values below.

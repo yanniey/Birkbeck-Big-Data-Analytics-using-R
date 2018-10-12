@@ -2,7 +2,7 @@
 title: "Lab 1 - Intro to R"
 author: "Anyi Guo"
 date: "09/10/2018"
-output: word_document
+output: pdf_document
 ---
 
 # Vectors
@@ -16,7 +16,7 @@ u<-seq(-10,0)
 ```{r}
 v<-seq(-0.1, by=0.5,length=11)
 ```
-3.Calculate the vector of u+v and u∗v.
+3.Calculate the vector of `u+v` and `u times v`.
 ```{r}
 u+v
 u*v
