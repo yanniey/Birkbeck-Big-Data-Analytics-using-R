@@ -1,0 +1,83 @@
+---
+title: "Lab3 Answer"
+author: "Anyi Guo"
+date: "16/10/2018"
+output:
+  pdf_document: default
+  word_document: default
+---
+# Lab 3 Distance vs. Fire Damage
+
+1) Use R to estimate the unknown parameters of the hypothesised model. Find the least squares estimates of the slope `b1` and intercept `b0` on the printout. Write down the least squares equation for this model.
+```{r}
+library(ISLR)
+library(MASS)
+Distance<-c(3.4,1.8,4.6,2.3,3.1,5.5,0.7,3.0,2.6,4.3,2.1,1.1,6.1,4.8,3.8)
+Damage<-c(26.2,17.8,31.3,23.1,27.5,36.0,14.1,22.3,19.6,31.3,24.0,17.3,43.2,36.4,26.1)
+FireData<-data.frame(Distance,Damage)
+fire_fit<-lm(Damage~Distance,data=FireData)
+```
+
+* Least squares estimates of the slope `b1` is:`4.919`  
+* Intercept `b0`  is: `10.278`  
+* <span style="color:blue">Least squares equation is:</span>
+`Damage = 10.278 + 4.919 * Distance`
+
+
+2) Plot the dataset and the least squares line on the same figure.
+
+```{r}
+plot(Distance,Damage)+abline(fire_fit)
+```
+
+3) How to interpret the slope `b1` and y-intercept `b0` of the least squares line?
+
+* `b1`: For every increase of 1 mile, the fire damage would cost $4919.3 more. 
+* `b0`: Even if the fire takes place exactly where the fire station is (e.g. Distance=0), it would still cost $10,277.9 to put off the fire. 
+
+4) Measuring the extent to which the model fits the data.
+```{r}
+summary(fire_fit)
+```
+a. What is the RSE of this model? How to interpret it?
+
+* `RSE` is 2.316. It means that even if this is correct, any prediction on cost of damage on the basis of distance would still be off by $2316 on average
+
+
+b. What is the R-squared value? How to interpret it?
+
+* `R-squared` is 0.9176 (Using Adjusted R-Squared). It means that 91.76% of the variation of Damage Cost can be explained by changes in Distance.
+
+5) Test the null hypothesis that `b1` is 0. Find the t-value and p-value. What conclusions can you draw from the two values?
+* `t-value` is 12.525
+* `p-value` is 1.248e-08.
+* The low p-value(< 5%) indicates that there is a relationship between Distance and Damage Cost, so we can reject the null hypothesis.
+
+6) Predict the value of damage (y) for a new set of distances (x = 0.5, 1.5, 2.5, 3.5). Can you obtain the above new y's simultaneously?
+
+```{r}
+predict(fire_fit,data.frame(Distance=c(0.5,1.5,2.5,3.5)))
+```
+
+7) Find the confidence interval for the prediction of damage (y) for a new set of distance (x = 0.5, 3, 5.5). Can you obtain the above confidence intervals simultaneously?
+
+```{r}
+predict(fire_fit,data.frame(Distance=c(0.5,3,5.5)),interval="confidence")
+```
+
+8) Find the prediction interval for the prediction of damage (y) for a new set of distance (x = 0.5, 3, 5.5). Can you obtain the above confidence intervals simultaneously?
+```{r}
+predict(fire_fit,data.frame(Distance=c(0.5,3,5.5)),interval="prediction")
+```
+9) Compare your results in 7) and 8) and comment on the confidence intervals and prediction intervals.
+
+* Althought the fit figures (first column) is the same for both Prediction and Confidence intervals, Prediction intervals have wider lower and upper boundary than Confidence intervals.
+
+10) Plot the confidence intervals and prediction intervals in the same figure.
+```{r}
+More_Distance<-data.frame(Distance=seq(0,7,length=51))
+p_conf<-predict(fire_fit,interval="confidence",newdata=More_Distance)
+p_pred<-predict(fire_fit,interval="prediction",newdata=More_Distance)
+p<-plot(Distance,Damage,data=FireData)+ abline(fire_fit)+lines(More_Distance$Distance,p_conf[,"lwr"],col="red",type="b",pch="+")+lines(More_Distance$Distance,p_conf[,"upr"],col="red",type="b",pch="+")+lines(More_Distance$Distance,p_pred[,"lwr"],col="blue",type="b",pch="*")+lines(More_Distance$Distance,p_pred[,"upr"],col="blue",type="b",pch="*")
+
+```
