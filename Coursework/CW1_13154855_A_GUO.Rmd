@@ -1,0 +1,101 @@
+---
+title: "CW1_13154855_A_Guo"
+author: "Anyi Guo"
+date: "16/10/2018"
+output:
+  html_document:
+    df_print: paged
+student_id: 13154855
+programme: MSc Data Science
+---
+
+1. Statistical learning methods 
+
+For each of parts (a) through (d), indicate whether we would generally expect the performance of a flexible
+statistical learning method to be better or worse than an inflexible method. Justify your answer. 
+
+(a) The sample size n is extremely large, and the number of predictors p is small.  
+(b) The number of predictors p is extremely large, and the number of observations n is small.   
+(c) The relationship between the predictors and response is highly non-linear.  
+(d) The variance of the error terms, i.e. σ2 = Var(ε), is extremely high.  
+
+2. Descriptive analysis 
+
+In a higher educational institution the comprehensive applied mathematics exam is comprised of two parts. On the first day, 20 students took the exam, the results of which are presented below:  
+
+Oral exam results: 4, 1, 4, 5, 3, 2, 3, 4, 3, 5, 2, 2, 4, 3, 5, 5, 1, 1, 1, 2.  
+Written exam results: 2,3,1,4,2,5,3,1,2,1,2,2,1,1,2,3,1,2,3,4.
+
+(a) Use R to calculate the mean, the mode, the median, the variance and the standard deviation of the oral and written exams separately and together as well.  
+```{r}
+oral<-c(4, 1, 4, 5, 3, 2, 3, 4, 3, 5, 2, 2, 4, 3, 5, 5, 1, 1, 1, 2)
+written<-c(2,3,1,4,2,5,3,1,2,1,2,2,1,1,2,3,1,2,3,4)
+oral_mean<-mean(oral)
+written_mean<-mean(written)
+combined_mean<-mean(oral+written)
+```
+
+(b) Find the covariance and correlation between the oral and written exam scores.  
+(c) Is there a positive or negative or no correlation between the two?  
+(d) Is there causation between the two? Justify your answers.  
+
+3. Descriptive analysis 
+This exercise involves the Auto data set studied in the class. Make sure that the missing values have been removed from the data.
+(a) Which of the predictors are quantitative, and which are qualitative?
+(b) What is the range of each quantitative predictor? You can answer this using the range() function.
+(c) What is the mean and standard deviation of each quantitative predictor?
+(d) Now remove the 10th through 85th observations. What is the range, mean, and standard deviation of each predictor in the subset of the data that remains?  
+(e) Using the full data set, investigate the predictors graphically, using scatterplots or other tools of your choice. Create some plots highlighting the relationships among the predictors. Comment on your findings.
+(f) Suppose that we wish to predict gas mileage (mpg) on the basis of the other variables. Do your plots suggest that any of the other variables might be useful in predicting mpg? Justify your answer.
+
+4. Linear regression 
+This question involves the use of simple linear regression on the Auto data set.
+(a) Use the lm() function to perform a simple linear regression with mpg as the response and horsepower as the predictor. Use the summary() function to print the results. Comment on the output. For example:
+
+i. Is there a relationship between the predictor and the response?  
+
+ii. How strong is the relationship between the predictor and the response?  
+
+iii. Is the relationship between the predictor and the response positive or negative?  
+
+iv. What is the predicted mpg associated with a horsepower of 98? What are the associated 95% confidence and prediction intervals?  
+
+(b) Plot the response and the predictor. Use the abline() function to display the least squares regression line.  
+
+(c) Plot the 95% confidence interval and prediction interval in the same plot as (b) using different colours and legends.  
+
+5. Logistic regression
+Using the Boston data set, fit classification models in order to predict whether a given suburb has a crime rate above or below the median. Explore logistic regression models using various subsets of the predictors. Describe your findings.  
+
+6. Resampling methods  
+
+Suppose that we use some statistical learning method to make a prediction for the response Y for a particular value of the predictor X. Carefully describe how we might estimate the standard deviation of our prediction.  
+
+7. Resampling methods
+We will now perform cross-validation on a simulated data set.  
+
+(a) Generate a simulated data set as follows:  
+```{r}
+set.seed(500)
+y = rnorm(500)
+x = 4 - rnorm(500)
+y = x - 2*x^2 + 3*x^4 + rnorm(500)
+```
+
+In this data set, what is n and what is p? Write out the model used to generate the data in equation form.
+
+(b) Create a scatterplot of X against Y. Comment on what you find.  
+
+(c) Set the seed to be 23, and then compute the LOOCV and 10-fold CV errors that result from fitting the following four models using least squares:
+i. Y = β0 + β1X + ε
+ii. Y =β0 +β1X+β2X2 +ε
+iii. Y =β0 +β1X+β2X2 +β3X3 +ε
+iv. Y =β0 +β1X+β2X2 +β3X3 +β4X4 +ε.  
+
+Note you may find it helpful to use the data.frame() function to create a single data set containing both X and Y.  
+
+(d) Repeat (c) using random seed 46, and report your results. Are your results the same as what you got in (c)? Why?  
+
+(e) Which of the models in (c) had the smallest LOOCV and 10-fold CV error? Is this what you expected? Explain your answer.  
+
+(f) Comment on the statistical significance of the coefficient estimates that results from fitting each of the models in (c) using least squares. Do these results agree with the conclusions drawn based on the cross-validation results?

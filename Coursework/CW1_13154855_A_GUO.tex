@@ -1,0 +1,297 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={CW1\_13154855\_A\_Guo},
+            pdfauthor={Anyi Guo},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{CW1\_13154855\_A\_Guo}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{Anyi Guo}
+    \preauthor{\centering\large\emph}
+  \postauthor{\par}
+      \predate{\centering\large\emph}
+  \postdate{\par}
+    \date{16/10/2018}
+
+
+\begin{document}
+\maketitle
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Statistical learning methods
+\end{enumerate}
+
+For each of parts (a) through (d), indicate whether we would generally
+expect the performance of a flexible statistical learning method to be
+better or worse than an inflexible method. Justify your answer.
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\tightlist
+\item
+  The sample size n is extremely large, and the number of predictors p
+  is small.\\
+\item
+  The number of predictors p is extremely large, and the number of
+  observations n is small.\\
+\item
+  The relationship between the predictors and response is highly
+  non-linear.\\
+\item
+  The variance of the error terms, i.e.~σ2 = Var(ε), is extremely high.
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Descriptive analysis
+\end{enumerate}
+
+In a higher educational institution the comprehensive applied
+mathematics exam is comprised of two parts. On the first day, 20
+students took the exam, the results of which are presented below:
+
+Oral exam results: 4, 1, 4, 5, 3, 2, 3, 4, 3, 5, 2, 2, 4, 3, 5, 5, 1, 1,
+1, 2. Writtenexamresults: 2,3,1,4,2,5,3,1,2,1,2,2,1,1,2,3,1,2,3,4.
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\tightlist
+\item
+  Use R to calculate the mean, the mode, the median, the variance and
+  the standard deviation of the oral and written exams separately and
+  together as well.\\
+\item
+  Find the covariance and correlation between the oral and written exam
+  scores.\\
+\item
+  Is there a positive or negative or no correlation between the two?\\
+\item
+  Is there causation between the two? Justify your answers.\\
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Descriptive analysis (10\% \textbar{} 0\%) This exercise involves the
+  Auto data set studied in the class. Make sure that the missing values
+  have been removed from the data.
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\tightlist
+\item
+  Which of the predictors are quantitative, and which are qualitative?
+\item
+  What is the range of each quantitative predictor? You can answer this
+  using the range() function.
+\item
+  What is the mean and standard deviation of each quantitative
+  predictor?
+\item
+  Now remove the 10th through 85th observations. What is the range,
+  mean, and standard deviation of each predictor in the subset of the
+  data that remains? 1
+\item
+  Using the full data set, investigate the predictors graphically, using
+  scatterplots or other tools of your choice. Create some plots
+  highlighting the relationships among the predictors. Comment on your
+  findings.
+\item
+  Suppose that we wish to predict gas mileage (mpg) on the basis of the
+  other variables. Do your plots suggest that any of the other variables
+  might be useful in predicting mpg? Justify your answer.
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Linear regression (20\% \textbar{} 20\%) This question involves the
+  use of simple linear regression on the Auto data set.
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\tightlist
+\item
+  Use the lm() function to perform a simple linear regression with mpg
+  as the response and horsepower as the predictor. Use the summary()
+  function to print the results. Comment on the output. For example:
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{\roman{enumi}.}
+\tightlist
+\item
+  Is there a relationship between the predictor and the response?
+\item
+  How strong is the relationship between the predictor and the response?
+\item
+  Is the relationship between the predictor and the response positive or
+  negative?
+\item
+  What is the predicted mpg associated with a horsepower of 98? What are
+  the associated 95\% confidence and prediction intervals?
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Plot the response and the predictor. Use the abline() function to
+  display the least squares regression line.
+\item
+  Plot the 95\% confidence interval and prediction interval in the same
+  plot as (b) using different colours and legends.
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  Logistic regression (10\% \textbar{} 20\%) Using the Boston data set,
+  fit classification models in order to predict whether a given suburb
+  has a crime rate above or below the median. Explore logistic
+  regression models using various subsets of the predictors. Describe
+  your findings.
+\item
+  Resampling methods (20\% \textbar{} 0\%) Suppose that we use some
+  statistical learning method to make a prediction for the response Y
+  for a particular value of the predictor X. Carefully describe how we
+  might estimate the standard deviation of our prediction.
+\item
+  Resampling methods We will now perform cross-validation on a simulated
+  data set. (a) Generate a simulated data set as follows: set.seed(500)
+  y = rnorm(500) x = 4 - rnorm(500) y = x - 2\emph{x\^{}2 + 3}x\^{}4 +
+  rnorm(500) (20\% \textbar{} 20\%) In this data set, what is n and what
+  is p? Write out the model used to generate the data in equation form.
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Create a scatterplot of X against Y. Comment on what you find.
+\item
+  Set the seed to be 23, and then compute the LOOCV and 10-fold CV
+  errors that result from fitting the following four models using least
+  squares:
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{\roman{enumi}.}
+\item
+  Y = β0 + β1X + ε
+\item
+  Y =β0 +β1X+β2X2 +ε 2
+\item
+  Y =β0 +β1X+β2X2 +β3X3 +ε
+\item
+  Y =β0 +β1X+β2X2 +β3X3 +β4X4 +ε. Note you may find it helpful to use
+  the data.frame() function to create a single data set containing both
+  X and Y.
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Repeat (c) using random seed 46, and report your results. Are your
+  results the same as what you got in (c)? Why?
+\item
+  Which of the models in (c) had the smallest LOOCV and 10-fold CV
+  error? Is this what you expected? Explain your answer.
+\item
+  Comment on the statistical significance of the coefficient estimates
+  that results from fitting each of the models in (c) using least
+  squares. Do these results agree with the conclusions drawn based on
+  the cross-validation results?
+\end{enumerate}
+
+
+\end{document}
