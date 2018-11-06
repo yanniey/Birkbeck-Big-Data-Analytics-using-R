@@ -1,6 +1,13 @@
 # Big Data Analytics using R
 ## Master of Data Science at Birkbeck, University of London, 10/2018
 
+### Course Format:
+* On campus: 1.5 hours of lecture and 1.5 hours of lab per week
+* Online: ~ 5 hours of coding coursework & assignments
+* 2 courseworks of 10% each
+* Exam: 3 hour exams (80% of score)
+
+
 ### Syllabus 
 1. Introduction to R
 2. Basic Statistics
@@ -431,6 +438,41 @@ Qualitative Predictors in Logistic Regression
   * CV error rate is the average over the k errors we have computed
 
 ## Week 5: Decision Trees
+Regression vs. Classification tree
+
+#### Regression tree: Base ball player salary set  
+
+1. Why did we transform the salary from numbers to `log numbers`?
+  * There are significant difference between salaries -> from tens to thousands.
+  * We log transformed the salary because the difference between min and max values have big gaps. We use log transform to make the numbers to normal distribution (because there are way more tools to deal with normal distribution than non-normal distribution)
+
+  * When there's a large gap between min and max value, then often the statistical tools won't perform well when doing analysis.
+
+  * Log changes multiplication into addition (for which there are more tools)
+
+2. Where to split?
+  * Cutting point = the average between points
+  * Stopping criteria: stop when there are too few observations in each area (e.g. < 5 observations>)
+
+3. Improving tree accuracy
+  * A large tree (i.e. one with many terminal nodes) may tend to over fit the training data.
+    + Large tree: lower bias, higher variance, worse interpretation 
+    + Small tree: higher bias, lower variance, better interpretation
+  * Generally, we can improve accuracy by “pruning” the tree i.e. cutting off some of the terminal nodes.
+  * How do we know how far back to prune the tree?
+    + We use cross validation to see which tree has the **lowest error rate**.
+
+#### Classification tree:
+* For each region (or node) we predict the most common category among the training data within that region.
+* There are several possible different criteria to use such as the “gini index” and “cross-entropy” but the easiest one to think about is to minimise the **error rate**.
+* `Error rate = # wrong predictions / total # of predictions`
+* `tree.carseats <- tree(High~.-Sales,Carseats)`
+  `.-Sales` means x is everything but `Sales`. removing it because `High` is correlated with `Sales`
+
+How to prune for different trees:
+  * `prune.misclass` for classification tree
+  * `prune.tree` for regression tree
+
 ## Week 6. Ensemble Methods
 ## Week 7. SVM
 ## Week 8. Clustering

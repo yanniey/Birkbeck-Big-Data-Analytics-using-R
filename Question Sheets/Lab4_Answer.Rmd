@@ -34,28 +34,81 @@ Questions
 
 1) Get basic descriptives for the entire data set using summary(). View the dataset using View().  
 
+```{r}
+summary(mydata)
+View(mydata)
+```
+
 2) How many observations are there in this dataset?
+```{r}
+dim(mydata)
+```
+400 observations of 4 rows.
 
 3) Get the standard deviations for the first three variables (i.e., admit, gre and gpa). Hint: use sapply to apply the sd function to each variable in the dataset: sapply(mydata, sd). Now get the mean admit, gre and gpa in a similar way.
 
 ```{r}
- mydata <- read.csv("https://stats.idre.ucla.edu/stat/data/binary.csv") ## view the first few rows of the data
-head(mydata)
-1
+sapply(mydata[,-4],sd)
+sapply(mydata[,-4],mean)
 ```
+Using `[,-4]` to ignore the fourth column which is `rank`. Ignoring it as it is a categorical column, so these numbers are not meaningful to them.
 
 4) Convert rank to a factor to indicate that rank should be treated as a categorical variable. (Hint: use factor() function)
 [More on factors, see the tutorial here: https://swcarpentry.github.io/r-novice-inflammation/12-supp-factors/ index.html]
+```{r}
+mydata$rank<-factor(mydata$rank)
+```
+
 5) Estimate a logistic regression model using the glm function, and get the results using the summary command.
+
+```{r}
+glm.fit<-glm(admit~gre+gpa+rank,data=mydata,family = binomial)
+summary(glm.fit)
+```
+
 6) Do you notice variable rank is replaced with categorical variables rank2, rank3, and rank4 that can only take values of 0 or 1? Recall that the original variable rank can take values of 1, 2, 3, or 4. Why isn’t a variable rank1 needed? If rank is 1, what are the values of rank2, rank3 and rank4?
+
+If `rank` is 1, then `rank2` is 0, `rank3` is 0 and `rank4` is 0.
+
+If `rank` is 2, then `rank2` is 1, `rank3` and `rank4` are 0.
+
+If `rank` is 3, then `rank2` is 0, `rank3` is 1 and `rank4` is 0.
+
+If `rank` is 4, then `rank2` and `rank3` are 0 and `rank4` is 1.
 
 7) From the z-statistics and p-values of the variables, report which variables are statistically significant.
 
+The z-statistics of all the variables are large and the p-values of all the variables are small (<0.05). All the variables are statistically significant.
+
 8) Use the model to predict the training dataset and store the results to a vector of probabilities admit.prob.
+
+```{r}
+admit.probs <- predict(glm.fit,type="response")
+admit.probs
+```
 
 9) Create another vector admit.pred to show 0 or 1 for admit.prob. Let’s set the value to be 0 if the probability is less than 0.5, and 1 if the probability is no less than 0.5.
 
+```{r}
+admit.pred<-rep(0,400)
+admit.pred[admit.probs>.5] <- 1
+```
+
 10) Using table() function to create a confusion matrix to determines how many observations were correctly or incorrectly classified. Calculate the percentage that the observations were correctly classified.
 
+```{r}
+table(admit.pred,mydata$admit)
+mean(admit.pred == mydata$admit)
+```
+Correctly classified = (254+30)/400 = 71%
+
 11) Use the model to predict the average cases in each rank, that is, four new data with mean gre, mean gpa and rank from 1 to 4.
-2
+
+```{r}
+newdata1 <- with(mydata, data.frame(gre = mean(gre), gpa = mean(gpa), rank = factor(1:4)))
+newdata1$admit1.prob <- predict(glm.fit, newdata = newdata1, type = "response")
+newdata1
+newdata1$admit1.pred <- rep(1,4)
+newdata1$admit1.pred[newdata1$admit1.prob<0.5] <- 0
+newdata1
+```

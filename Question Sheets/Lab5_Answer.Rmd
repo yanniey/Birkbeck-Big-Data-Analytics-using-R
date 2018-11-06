@@ -1,0 +1,24 @@
+---
+title: "Lab5_Answer"
+author: "Anyi Guo"
+date: "06/11/2018"
+output: pdf_document
+---
+(I) Validation set approach
+
+1) Randomly pick half of the data as the training data. Remember to set a seed to make your result repeatable.
+
+2) Build a linear regression model based the training data.
+
+3) Estimate the test MSE based on the other half (as test data)
+
+4) Now try to build polynomial regression of degree 2 and 3 using lm(y~poly(x,i)), where y is the response variable, x is the predictor variable and i is the highest degree of x. Compute the test MSE for the two models.
+
+5) What conclusion could we draw from the above comparison of degree 1 (linear) and degree 2 (quadratic) and degree 3 (cubic) regression models?
+
+6) Choose 10 different seeds. For each seed, calculate the test MSE for models of degree from 1 to 10. You may use a nested for-loop to do that. Plot the variability on the results. Can you obtain a similar plot as in Figure 1.
+
+• Hint:
+In order to do that you need to plot one curve first, and repeat the same procedure for another 9 times (using a for-loop) where each time a different seed is chosen.
+
+In order to plot one curve, you need to obtain a vector of size 10, where each element of the vector records the test MSE of the model with degree i (i = 1, 2, .10). This can be implemented by a for-loop to go through degree from 1 to 10.
