@@ -473,7 +473,81 @@ How to prune for different trees:
   * `prune.misclass` for classification tree
   * `prune.tree` for regression tree
 
-## Week 6. Ensemble Methods
+## Week 6. Ensemble Methods (Decision Trees, Random Forest/Bagging/Boosting)
+Decision trees have high variance (a disadvantage)
+1. Pros of Decision Trees:
+  + Trees are very easy to explain to people (probably even easier than linear regression)
+  + Treescanbeplottedgraphically
+  + They work fine on both classification and regression problems
+2. Cons of Decision Trees:
+  + Trees don’t have the same prediction accuracy as some of the more complicated approaches that we examine in this course
+  + **High variance**
+3. Bootstraping 
+  * Resampling of the observed dataset (and of equal size to the observed dataset), each of which is obtained by **random sampling with replacement** from the original dataset.
+  * Distinct test sets are usually there to obtain a measure of **variability** – how the test MSE/error rate varies
+4. Bagging = Bootstrapping + averaging
+  * Bootstraping = plenty of training datasets
+  * Averaging= reduces variances
+  * How does Bagging work?
+    + How does bagging work?
+    + Generate B different bootstrapped training datasets
+    + Train the statistical learning method (e.g. a decision tree) on each of the B training datasets, and obtain the prediction
+  * For prediction:
+    + **Regression**: average all predictions from all B trees
+    + **Classification**: majority vote among all B trees
+5. Pruned trees = lower variance, 
+   Unpruned tress=  high variance  but low bias
+   Averaging trees reduce variance and bias, but loses interpretability. 
+
+6. Bagging for regression vs. classification trees
+   For prediction for classification tress, there are two approaches:
+   * Record the class that each bootstrapped data set predicts and provide an overall prediction to the most commonly occurring one (majority vote).
+   * If our classifier produces probability estimates we can just average the probabilities and then predict to the class with the highest probability.
+   * Bayes error rate is the lowest possible error rate for a given class of classifier. (can only be estimated)
+  
+7. Out-of-Bag Error Estimation
+  * Since bootstrapping involves random selection of subsets of observations to build a training data set, the remaining non-selected part could be the testing data.
+  * On average, each bagged tree makes use of around 2/3 of the observations, so we end up having 1/3 of the observations used for testing.
+  * The remaining 1/3 of the observations are referred to as the **out-of- bag (OOB) observations**.
+  * The estimated test error using the OOB observations is called the **OOB error**.
+  * OOB is the average of error rates from `Tree 1`, `Tree 2` ....`Tree 500`.
+
+  Why is OOB important?
+  * When the number of trees B is sufficiently large, OOB error is virtually equivalent to LOOCV error. (LOOCV is the best error you can get.)
+  * OOB can be found by printing the bag: `print(bag.carseats)`
+
+8. Importance
+  * Bagging improves prediction accuracy at the expense of interpretability
+  * **Relative influence plots**: help us decide which variables are most useful in the prediction
+    + These plots gives a score for each variable
+    + These scores represents the **decrease in MSE** when splitting on a particular variable
+      + If the score is 0, then this variable is not important and could be dropped
+      + The larger the score, the more important the variable is.
+
+9. Random Forest
+  * Random Forest is especially good when there is a **small amount of observations (n)**, but **large amount of features/columns(p)**
+  * Build a number of decision trees on bootstrapped training sample, but when building these trees, each time a split in a tree is considered, a random sample of m predictors is chosen as split candidates from the full set of p predictors (Usually m = √p (square root of p))
+  * 
+
+10. Comparison
+  * Decision tree: Validation set approach
+    + Use only half of the training set to build a model
+    + High variance
+    + Decision tree is a special case of random forest
+    + Validation set approach is a special case of K-fold CV
+  *  Bagging: LOOCV
+    + A way to utilise almost all observations in the data set to train a model
+    + Bagging is a special case of Random Forest
+    + LOOCV is a special case of K-fold CV
+  * Random Forest: K-fold CV
+    + De-correlate the training sets
+    + Produce more reduction on variance
+
+11. Boosting
+  * In Bagging, any element has the same probability to appear in a new data set.
+  * For Boosting the observations are weighted and therefore some of them will take part in the new sets more often.
+  * For overfitting problems, use bagging, because boosting increases overfitting.
+  * For bias problems, use boosting, because bagging doesn't reduce bias.
 ## Week 7. SVM
 ## Week 8. Clustering
 ## Week 9. Dimension Reduction

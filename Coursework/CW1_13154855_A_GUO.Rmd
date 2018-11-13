@@ -11,12 +11,15 @@ programme: MSc Data Science
 
 1. Statistical learning methods 
 
-For each of parts (a) through (d), indicate whether we would generally expect the performance of a flexible
-statistical learning method to be better or worse than an inflexible method. Justify your answer. 
+For each of parts (a) through (d), indicate whether we would generally expect the performance of a flexible statistical learning method to be better or worse than an inflexible method. Justify your answer. 
 
 (a) The sample size n is extremely large, and the number of predictors p is small.  
+
 (b) The number of predictors p is extremely large, and the number of observations n is small.   
+
 (c) The relationship between the predictors and response is highly non-linear.  
+
+
 (d) The variance of the error terms, i.e. σ2 = Var(ε), is extremely high.  
 
 2. Descriptive analysis 
@@ -30,37 +33,139 @@ Written exam results: 2,3,1,4,2,5,3,1,2,1,2,2,1,1,2,3,1,2,3,4.
 ```{r}
 oral<-c(4, 1, 4, 5, 3, 2, 3, 4, 3, 5, 2, 2, 4, 3, 5, 5, 1, 1, 1, 2)
 written<-c(2,3,1,4,2,5,3,1,2,1,2,2,1,1,2,3,1,2,3,4)
-oral_mean<-mean(oral)
-written_mean<-mean(written)
-combined_mean<-mean(oral+written)
+combined <-c(oral,written)
+
+findmode <- function(i) {
+   uniqi <- unique(i)
+   uniqi[which.max(tabulate(match(i, uniqi)))]
+}
+
+exam <- matrix(nrow=3,ncol=5)
+colnames(exam)=c("Mean","Mode","Median","Variance","Std Deviation")
+rownames(exam)=c("Oral","Written","Combined")
+exam[1,]<-c(mean(oral),findmode(oral),median(oral),var(oral),sd(oral))
+exam[2,]<-c(mean(written),findmode(written),median(written),var(written),sd(written))
+exam[3,]<-c(mean(combined),findmode(combined),median(combined),var(combined),sd(combined))
 ```
 
-(b) Find the covariance and correlation between the oral and written exam scores.  
+(b) Find the covariance and correlation between the oral and written exam scores. 
+```{r}
+print(cov(oral,written))
+print(cor(oral,written))
+```
 (c) Is there a positive or negative or no correlation between the two?  
+
+There is a slightly negative correlation between the two. 
+
 (d) Is there causation between the two? Justify your answers.  
+
+Not sure. Correlation does not necessarily signify causation - we'll need more data to substantiate that claim.
 
 3. Descriptive analysis 
 This exercise involves the Auto data set studied in the class. Make sure that the missing values have been removed from the data.
+
 (a) Which of the predictors are quantitative, and which are qualitative?
+
+Quantitative: `mpg`, `cylinders`,`displacement`, `horsepower`, `weight`, `acceleration`,`year`
+Qualitative: `origin`, `name`
+
+```{r}
+library(ISLR)
+Auto<-na.omit(Auto)
+```
+
 (b) What is the range of each quantitative predictor? You can answer this using the range() function.
+```{r}
+
+# Get range for each column
+for(i in 1:7){
+        print(paste("The range for", colnames(Auto)[i], "is", range(Auto[,i])[1],"~",range(Auto[,i])[2]))
+        }
+```
+
 (c) What is the mean and standard deviation of each quantitative predictor?
-(d) Now remove the 10th through 85th observations. What is the range, mean, and standard deviation of each predictor in the subset of the data that remains?  
+
+```{r}
+
+# get Mean for each column
+for(i in 1:7){
+        print(paste("The mean for", colnames(Auto)[i], "is", mean(Auto[,i])))
+}
+
+# get Standard Deviation for each column
+
+for(i in 1:7){
+        print(paste("The standard deviation for",colnames(Auto)[i],"is",sd(Auto[,i])))
+}
+```
+
+(d) Now remove the 10th through 85th observations. What is the range, mean, and standard deviation of each predictor in the subset of the data that remains? 
+
+```{r}
+newAuto<-Auto[-seq(10,85)]
+
+for(i in 1:7){
+        print(paste("In the subset newAuto, the range for", colnames(newAuto)[i], "is", range(newAuto[,i])[1],"~",range(newAuto[,i])[2],", the mean is",mean(newAuto[,i]), ", the standard deviation is",sd(newAuto[,i])))
+}
+```
+
 (e) Using the full data set, investigate the predictors graphically, using scatterplots or other tools of your choice. Create some plots highlighting the relationships among the predictors. Comment on your findings.
+
+```{r}
+
+plot(Auto$mpg,Auto$cylinders) 
+# the higher the mpg, the lower the number of cylinders. Number of cylinders is not continuous. 
+
+plot(Auto$mpg,Auto$displacement) # seems to be a negative polynomial correlation between mpg and displacement
+
+plot(Auto$mpg,Auto$horsepower) # this chart seems to indicate a negative linear/polynomial correlation between mpg and horsepower
+
+plot(Auto$mpg,Auto$weight) # seems to be a negative linear(?)correlation between mpg and weight
+
+plot(Auto$mpg,Auto$acceleration) # this chart seems to indicate a positive linear/polynomial relationship between mpg and acceleration
+
+
+```
+
 (f) Suppose that we wish to predict gas mileage (mpg) on the basis of the other variables. Do your plots suggest that any of the other variables might be useful in predicting mpg? Justify your answer.
+  In addition to the 5 quantitative columns, the `Origin` and `Year` column may also be useful in predicting mpg.
+  
+  `Origin`: the higher the number (i.e. Japanese>European>America), the higher the mpg tends to be.
+  
+  `Year`: the later the year, the higher the mpg tends to be. 
+
+```{r}
+plot(Auto$mpg,Auto$origin)
+plot(Auto$mpg,Auto$year)
+```
+
+
 
 4. Linear regression 
 This question involves the use of simple linear regression on the Auto data set.
 (a) Use the lm() function to perform a simple linear regression with mpg as the response and horsepower as the predictor. Use the summary() function to print the results. Comment on the output. For example:
 
+```{r}
+lm.fit<-lm(mpg~horsepower,data=Auto)
+summary(lm.fit)
+```
+
 i. Is there a relationship between the predictor and the response?  
+Yes. 
 
 ii. How strong is the relationship between the predictor and the response?  
+The relationship is strong (i.e. above significance level)
 
 iii. Is the relationship between the predictor and the response positive or negative?  
+Negative. 
 
 iv. What is the predicted mpg associated with a horsepower of 98? What are the associated 95% confidence and prediction intervals?  
 
+
+
 (b) Plot the response and the predictor. Use the abline() function to display the least squares regression line.  
+
+
 
 (c) Plot the 95% confidence interval and prediction interval in the same plot as (b) using different colours and legends.  
 
