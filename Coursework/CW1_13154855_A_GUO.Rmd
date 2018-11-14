@@ -161,20 +161,65 @@ Negative.
 
 iv. What is the predicted mpg associated with a horsepower of 98? What are the associated 95% confidence and prediction intervals?  
 
+```{r}
+print(paste("Confidence interval is",predict(lm.fit,data.frame(horsepower=98),interval="confidence")))
+print(paste("Prediction is",predict(lm.fit,data.frame(horsepower=98),interval="prediction")))
+```
 
 
 (b) Plot the response and the predictor. Use the abline() function to display the least squares regression line.  
 
+```{r}
+lm.fit<-lm(mpg~horsepower,data=Auto)
+nd <- data.frame(horsepower=seq(46,230))
+p_conf <- predict(lm.fit,interval="confidence",newdata=nd)
+p_pred <- predict(lm.fit,interval="prediction",newdata=nd)
 
+plot(Auto$horsepower,Auto$mpg)
+abline(lm.fit)
+
+lines(nd$horse, p_conf[,"lwr"], col="red", type="b", pch="+") 
+lines(nd$horse, p_conf[,"upr"], col="red", type="b", pch="+") 
+lines(nd$horse, p_pred[,"upr"], col="blue", type="b", pch="*") 
+lines(nd$horse, p_pred[,"lwr"], col="blue", type="b", pch="*")
+
+```
 
 (c) Plot the 95% confidence interval and prediction interval in the same plot as (b) using different colours and legends.  
 
+
 5. Logistic regression
-Using the Boston data set, fit classification models in order to predict whether a given suburb has a crime rate above or below the median. Explore logistic regression models using various subsets of the predictors. Describe your findings.  
+Using the Boston data set, fit classification models in order to predict whether a given suburb has a crime rate above or below the median. Explore logistic regression models using various subsets of the predictors. Describe your findings. 
+Using `crim` as the response, there are 13 variables in the Boston dataset which can be used as predictors. 
+We'll devide them into 3 sets and run logistic regrssion on them.
+
+
+
+```{r}
+library(MASS)
+b<-Boston
+#b$chas=factor(b$chas)
+b$aboveMean<-ifelse(b$crim>=median(b$crim),1,0)
+
+glm1.fit<-glm(aboveMean~zn+indus+chas+nox,data=b,family=binomial)
+glm2.fit<-glm(aboveMean~rm+age+dis+rad,data=b,family=binomial)
+glm3.fit<-glm(aboveMean~tax+ptratio+black+lstat+medv,data=b,family=binomial)
+summary(glm1.fit)
+summary(glm2.fit)
+summary(glm3.fit)
+```
+**Conclusion**
+The following columns have minimum impact on the response, i.e. they are not useful predictors, so it is fine to leave them out of the model: 
+  `rm`
+  `ptratio`
+  `chas` (only .)
+  `zn` (only .)
 
 6. Resampling methods  
 
 Suppose that we use some statistical learning method to make a prediction for the response Y for a particular value of the predictor X. Carefully describe how we might estimate the standard deviation of our prediction.  
+
+There are three different ways 
 
 7. Resampling methods
 We will now perform cross-validation on a simulated data set.  
@@ -189,7 +234,14 @@ y = x - 2*x^2 + 3*x^4 + rnorm(500)
 
 In this data set, what is n and what is p? Write out the model used to generate the data in equation form.
 
+In this data set, n is 500 and p is x. The model used is stated above - `y = x - 2*x^2 + 3*x^4 + rnorm(500)`
+
 (b) Create a scatterplot of X against Y. Comment on what you find.  
+
+There seems to be a positive non-linear relationship between x and y. 
+```{r}
+plot(x,y)
+```
 
 (c) Set the seed to be 23, and then compute the LOOCV and 10-fold CV errors that result from fitting the following four models using least squares:
 i. Y = β0 + β1X + ε
@@ -198,9 +250,66 @@ iii. Y =β0 +β1X+β2X2 +β3X3 +ε
 iv. Y =β0 +β1X+β2X2 +β3X3 +β4X4 +ε.  
 
 Note you may find it helpful to use the data.frame() function to create a single data set containing both X and Y.  
+```{r warning=FALSE}
+library(boot)
+set.seed(23)
+y = rnorm(500)
+x = 4 - rnorm(500)
+y = x - 2*x^2 + 3*x^4 + rnorm(500)
+df<-data.frame(x,y)
 
+# first model Y = β0 + β1X + ε
+glm.fit <- glm(y~x,data=df)
+cv.err <- cv.glm(df,glm.fit)
+cv.err$delta
+cv.err2<-cv.glm(df,glm.fit,K=10)
+cv.err2$delta
+print(paste("The LOOCV error for first model is",cv.err$delta[1]," and the 10-fold CV error for the first model is",cv.err2$delta[1]))
+
+# second model Y =β0 +β1X+β2X^2 +ε
+glm.fit2<-glm(y~x+poly(x,2),data=df)
+cv.err<-cv.glm(df,glm.fit2)
+cv.err$delta
+cv.err2<-cv.glm(df,glm.fit2,K=10)
+cv.err2$delta
+print(paste("The LOOCV error for second model is",cv.err$delta[1]," and the 10-fold CV error for the second model is",cv.err2$delta[1]))
+
+# third model Y =β0 +β1X+β2X2 +β3X3 +ε
+glm.fit3<-glm(y~x+poly(x,3),data=df)
+cv.err<-cv.glm(df,glm.fit3)
+cv.err$delta
+cv.err2<-cv.glm(df,glm.fit3,K=10)
+cv.err2$delta
+print(paste("The LOOCV error for the third model is",cv.err$delta[1]," and the 10-fold CV error for the third model is",cv.err2$delta[1]))
+
+# fourth model Y =β0 +β1X+β2X2 +β3X3 +β4X4 +ε. 
+glm.fit4<-glm(y~x+poly(x,4),data=df)
+cv.err<-cv.glm(df,glm.fit4)
+cv.err$delta
+cv.err2<-cv.glm(df,glm.fit4,K=10)
+cv.err2$delta
+```
 (d) Repeat (c) using random seed 46, and report your results. Are your results the same as what you got in (c)? Why?  
 
+The results are not the same as when using `set.seed(23)`. This is because `set.seed()` generates a random set of numbers.
+
+```{r}
+set.seed(46)
+y = rnorm(500)
+x = 4 - rnorm(500)
+y = x - 2*x^2 + 3*x^4 + rnorm(500)
+df<-data.frame(x,y)
+
+# first model Y = β0 + β1X + ε
+glm.fit <- glm(y~x,data=df)
+cv.err <- cv.glm(df,glm.fit)
+cv.err$delta
+cv.err2<-cv.glm(df,glm.fit,K=10)
+cv.err2$delta
+print(paste("The LOOCV error for first model is",cv.err$delta[1]," and the 10-fold CV error for the first model is",cv.err2$delta[1]))
+```
 (e) Which of the models in (c) had the smallest LOOCV and 10-fold CV error? Is this what you expected? Explain your answer.  
+
+The fourth model has the smallest LOOCV and 10-fold CV error. This is what I expected 
 
 (f) Comment on the statistical significance of the coefficient estimates that results from fitting each of the models in (c) using least squares. Do these results agree with the conclusions drawn based on the cross-validation results?
