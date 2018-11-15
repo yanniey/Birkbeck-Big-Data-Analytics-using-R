@@ -527,7 +527,6 @@ Decision trees have high variance (a disadvantage)
 9. Random Forest
   * Random Forest is especially good when there is a **small amount of observations (n)**, but **large amount of features/columns(p)**
   * Build a number of decision trees on bootstrapped training sample, but when building these trees, each time a split in a tree is considered, a random sample of m predictors is chosen as split candidates from the full set of p predictors (Usually m = √p (square root of p))
-  * 
 
 10. Comparison
   * Decision tree: Validation set approach

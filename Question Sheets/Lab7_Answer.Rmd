@@ -5,26 +5,61 @@ date: "14/11/2018"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r}
+library(dplyr)
+titanic3<-read.csv("Lab7_titanic3.csv")
+titanic3<-select(titanic3,-name,-ticket,-boat,-body,-home.dest,-cabin)%>%
+        mutate(embarked = factor(embarked), 
+               sex = factor(sex),
+               pclass=factor(pclass))
+summary(titanic3)
 ```
 
-## R Markdown
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+1) survived is a numeric value. We need to first transform it to a categorical value and saved it as a new variable survived01. Use titanic3$survived01 = as.factor(titanic3$survived) to do so and check that this variable has been included in the dataset.
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+```{r}
+titanic3$survived01<-as.factor(titanic3$survived)
 ```
 
-## Including Plots
 
-You can also embed plots, for example:
+2) Install the package of randomForest and include this package into your code. In order to call the randomForest() function, all the missing value rows need to be dealt with. The simplest way is to remove those rows. Use titanic3 <- na.omit(titanic3) to do that.
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+```{r message=FALSE, warning=FALSE}
+library(randomForest)
+titanic3<-na.omit(titanic3)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+3) Use a seed to set half of the dataset to be training dataset and the other half to be test dataset.
+
+```{r}
+set.seed(8)
+train<-sample(nrow(titanic3),nrow(titanic3)/2)
+titanic3.test<-titanic3[-train,]
+```
+4) Use the training dataset to build a bagged model for
+  * y: survived
+  * x: all the features other than survived and survived01.
+Compute the mean error rate on the test dataset. 
+
+Remark: You might get a warning message, saying that `In randomForest.default(m, y, ...) : The response has five or fewer unique values. Are you sure you want to do regression?` Ignore the message for now. It’s doable and you will get a bagged model anyway.
+
+5) Using the same training and test dataset, build a bagged model for
+  * y: survived01
+  * x: all the features other than survived and survived01
+  a) Find out on how many trees your model is built and the OOB error 
+  b) Compute the mean error rate on the training dataset.
+
+
+6) Plot the variable importance plot for the two bagged models you built in 4) and 5) and comment whether the importance coincides.
+
+
+7) Plot a graph that shows the test error rate of a single tree (red dashed line), the mean test error rates for majority vote (black curve) and the test error rates for averaging the probabilities (blue curve), both in relation to the number of trees. Add a legend if you can.
+
+
+8) Plot a graph that shows the best value of mtry for the random forest model
+• y: survived01
+• x: all the features other than survived and survived01 • mtry: range from 1 to 7
+
+
+9) Play with mtry and ntree, plot a graph that shows test error rate vs ntree for different mtry, and find the best/reasonably good combination of mtry and ntree from the plot. Add a legend if you can.
