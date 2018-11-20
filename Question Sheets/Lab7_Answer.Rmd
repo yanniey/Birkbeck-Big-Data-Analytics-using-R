@@ -44,6 +44,13 @@ Compute the mean error rate on the test dataset.
 
 Remark: You might get a warning message, saying that `In randomForest.default(m, y, ...) : The response has five or fewer unique values. Are you sure you want to do regression?` Ignore the message for now. It’s doable and you will get a bagged model anyway.
 
+```{r}
+survived01.test<-titanic3[-train,1]
+bag.titanic3<-randomForest(survived~.-survived-survived01,titanic3,subset=train,mtry=10)
+yhat.titanic3<-predict(bag.titanic3,newdata=titanic3.test)
+table(yhat.titanic3,survived01.test)
+```
+
 5) Using the same training and test dataset, build a bagged model for
   * y: survived01
   * x: all the features other than survived and survived01

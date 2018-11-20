@@ -475,16 +475,20 @@ How to prune for different trees:
 
 ## Week 6. Ensemble Methods (Decision Trees, Random Forest/Bagging/Boosting)
 Decision trees have high variance (a disadvantage)
+
 1. Pros of Decision Trees:
   + Trees are very easy to explain to people (probably even easier than linear regression)
   + Treescanbeplottedgraphically
   + They work fine on both classification and regression problems
+
 2. Cons of Decision Trees:
   + Trees don’t have the same prediction accuracy as some of the more complicated approaches that we examine in this course
   + **High variance**
+
 3. Bootstraping 
   * Resampling of the observed dataset (and of equal size to the observed dataset), each of which is obtained by **random sampling with replacement** from the original dataset.
   * Distinct test sets are usually there to obtain a measure of **variability** – how the test MSE/error rate varies
+
 4. Bagging = Bootstrapping + averaging
   * Bootstraping = plenty of training datasets
   * Averaging= reduces variances
@@ -547,7 +551,98 @@ Decision trees have high variance (a disadvantage)
   * For Boosting the observations are weighted and therefore some of them will take part in the new sets more often.
   * For overfitting problems, use bagging, because boosting increases overfitting.
   * For bias problems, use boosting, because bagging doesn't reduce bias.
-## Week 7. SVM
-## Week 8. Clustering
-## Week 9. Dimension Reduction
-## Week 10. Applications
+
+## Week 8. SVM (Support Vector Machine Classifier)
+
+1. Maximal Margin Line Classifier
+  * **Margin** is the minimal (perpendicular) distance from all the observations to the separation line
+  * Maximal margin line: the line for which the margin is largest
+  * Find the minimal distance, and then find the line that has the largest distance
+  * **Support vectors** are vectors on the margin, and they support the maximum margin line (support means that if these vectors move, then the max margin line will move as well.)
+  * The maximal margin classifier depends only on support vectors
+  * no points should be within the margin
+
+
+2. More than two predictors:
+  * Two predictors: a line
+  * Three predictors: a plane
+  * More than three predictors: a **hyper-plane**
+
+3. Why Maximal Margin Classifiers Are Not sufficient by themselves?
+
+  * Maximal margin hyperplanes may not exist.➔linearly inseparable classes
+  * Even if maximal margin hyperplanes exist, they are extremely sensitive to a change in a single observation.→easy to overfit
+
+4. Support Vector Classifier (SVC)
+  * Use SVC for linear classification (for non-linear classification, use SVM)
+
+  * SVCs are based on a hyperplane that does not perfectly separate the two classes, in the interest of:
+    + Greater robustness to individual observations, and
+    + Better classification of most of the training observations.
+    + At the cost of worse classification of a few training observations. (the sacrifice)
+  * **Soft margin**: We allow some observations to be on the incorrect side of the margin, or even the incorrect side of the hyperplane.
+    + points are now allowed in the margin
+
+  * The SVC depends only on support vectors
+
+  * **Cost**: a tuning parameter and is generally chosen via cross validation to specify the cost of validation to the margin. 
+
+    + Cost determines to degree to which the model underfits or overfits the data.
+    + When cost is larger, then margin will narrow, and there will be fewer support vectors involved in determining the hyperplane. 
+    + Low cost -> wider margin ->low variance -> less likely to overfit
+    + When cost reduces, then margin 
+    + Classifier highly fit to the data
+    + Low bias, high variance
+    + In the book, budget is the opposite of the cost. The higher the budgest, the smaller the cost.
+
+  * Which points should influence optimality?
+    + All points
+      + Linear regression
+      + Naive Bayes
+      + Linear discriminant analysis
+    + Only "difficult points" close to decision boundary
+      + Support vector machines
+      + Logistic regression (kind of) [See section 9.5 for more details]
+
+  * Libraries for SVC and SVM
+    + `e1071` library
+    + `LiblineaR` library (useful for very large linear problems)
+
+  * rnorm:generate a list of numbers where mean is 0 and standard deviation is 1
+
+  * Smaller cost ➔ a larger number of support vectors, a wider margin
+
+  *  tune() in e1071 library performs 10-fold cross-validation
+
+3. Support Vector Machine Classifier (SVM)
+
+  * SVM is used for non-linear classification 
+
+  * SVM maps data into a high-dimensional feature space including non-linear features, then use a linear classifier there
+
+  * **Gamma** in RBF Kernel (Radial Basis Function(Gaussian)):
+
+    + Gamma controls the shapes of the "peaks" where you raise the points in the higher dimensional space
+      + smaller gamma: softer, broder bumps
+      + larger gamma: pointed bumps 
+      + the larger the gamma -> high variance, low bias -> likely to overfit
+
+    + Gamma determines which points can determine the decision boundary, and is used to tune the balance between variance and bias
+      + large gamma: the decision boundary is only dependent on the points that are very close to it
+        + wiggly, jagged boundary (a lot of weight carried by the nearby points)
+        + low bias and high variance -> overfitting
+      + small gamma: the decision boundary is dependent even on the points that are far away from it
+        + smooth boundary
+        + high bias and low variance -> not likely to overfit
+
+  * Change the value of kernel in the svm() function
+    + **Polynomial** kernel: `kernel=“polynomial”`
+      + Use degree argument to specify a degree for the polynomial kernel
+    + **Radial** kernel: `kernel=“radial”`
+      + Use **gamma argument** to specify a value of γ for the radial basis kernel
+    + if we don't know which one to use, use radial (the whole list of options are: linear SVM, RBF SVM (Radial Basis Function), Poly SVM, Sigmoid SVM)
+
+
+## Week 9. Clustering
+## Week 10. Dimension Reduction
+## Week 11. Applications

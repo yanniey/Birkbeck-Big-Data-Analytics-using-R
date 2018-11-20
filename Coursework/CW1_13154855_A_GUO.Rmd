@@ -5,22 +5,31 @@ date: "16/10/2018"
 output:
   html_document:
     df_print: paged
+  pdf_document: default
+  word_document: default
 student_id: 13154855
 programme: MSc Data Science
 ---
 
 1. Statistical learning methods 
 
-For each of parts (a) through (d), indicate whether we would generally expect the performance of a flexible statistical learning method to be better or worse than an inflexible method. Justify your answer. 
+  For each of parts (a) through (d), indicate whether we would generally expect the performance of a flexible statistical learning method to be better or worse than an inflexible method. Justify your answer. 
 
-(a) The sample size n is extremely large, and the number of predictors p is small.  
+* The sample size n is extremely large, and the number of predictors p is small.  
 
-(b) The number of predictors p is extremely large, and the number of observations n is small.   
+**Answer**: Flexible method would work better. This is because the large sample size means that it's less likely for us to overfit the data. Flexible methods also tends to reduce bias.
 
-(c) The relationship between the predictors and response is highly non-linear.  
+* The number of predictors p is extremely large, and the number of observations n is small.   
 
+**Answer**: Inflexible method would work better. A flexible method is likely to cause overfitting in this instance.
 
-(d) The variance of the error terms, i.e. σ2 = Var(ε), is extremely high.  
+* The relationship between the predictors and response is highly non-linear.  
+
+**Answer**: A flexible model would work better. This is because we need to use its flexibility to fit the non-linear nature of the data.
+
+* The variance of the error terms, i.e. σ2 = Var(ε), is extremely high.  
+
+**Answer**: An inflexible model would work better. This is because a flexible model would easily overfit the model and conveys too much noise due to the large variance in errors.
 
 2. Descriptive analysis 
 
@@ -29,7 +38,7 @@ In a higher educational institution the comprehensive applied mathematics exam i
 Oral exam results: 4, 1, 4, 5, 3, 2, 3, 4, 3, 5, 2, 2, 4, 3, 5, 5, 1, 1, 1, 2.  
 Written exam results: 2,3,1,4,2,5,3,1,2,1,2,2,1,1,2,3,1,2,3,4.
 
-(a) Use R to calculate the mean, the mode, the median, the variance and the standard deviation of the oral and written exams separately and together as well.  
+* Use R to calculate the mean, the mode, the median, the variance and the standard deviation of the oral and written exams separately and together as well.  
 ```{r}
 oral<-c(4, 1, 4, 5, 3, 2, 3, 4, 3, 5, 2, 2, 4, 3, 5, 5, 1, 1, 1, 2)
 written<-c(2,3,1,4,2,5,3,1,2,1,2,2,1,1,2,3,1,2,3,4)
@@ -55,19 +64,20 @@ print(cor(oral,written))
 ```
 (c) Is there a positive or negative or no correlation between the two?  
 
-There is a slightly negative correlation between the two. 
+**Answer**:There is a slightly negative correlation between the two. 
 
 (d) Is there causation between the two? Justify your answers.  
 
-Not sure. Correlation does not necessarily signify causation - we'll need more data to substantiate that claim.
+**Answer**:Not sure. Correlation does not necessarily signify causation - we'll need more data to substantiate that claim.
 
 3. Descriptive analysis 
 This exercise involves the Auto data set studied in the class. Make sure that the missing values have been removed from the data.
 
 (a) Which of the predictors are quantitative, and which are qualitative?
 
-Quantitative: `mpg`, `cylinders`,`displacement`, `horsepower`, `weight`, `acceleration`,`year`
-Qualitative: `origin`, `name`
+**Answer**:
+* Quantitative: `mpg`, `cylinders`,`displacement`, `horsepower`, `weight`, `acceleration`,`year`
+* Qualitative: `origin`, `name`
 
 ```{r}
 library(ISLR)
@@ -116,7 +126,7 @@ for(i in 1:7){
 plot(Auto$mpg,Auto$cylinders) 
 # the higher the mpg, the lower the number of cylinders. Number of cylinders is not continuous. 
 
-plot(Auto$mpg,Auto$displacement) # seems to be a negative polynomial correlation between mpg and displacement
+plot(Auto$mpg,Auto$displacement) # there seems to be a negative polynomial correlation between mpg and displacement
 
 plot(Auto$mpg,Auto$horsepower) # this chart seems to indicate a negative linear/polynomial correlation between mpg and horsepower
 
@@ -128,7 +138,8 @@ plot(Auto$mpg,Auto$acceleration) # this chart seems to indicate a positive linea
 ```
 
 (f) Suppose that we wish to predict gas mileage (mpg) on the basis of the other variables. Do your plots suggest that any of the other variables might be useful in predicting mpg? Justify your answer.
-  In addition to the 5 quantitative columns, the `Origin` and `Year` column may also be useful in predicting mpg.
+
+**Answer**:  In addition to the 5 quantitative columns, the `Origin` and `Year` column may also be useful in predicting mpg.
   
   `Origin`: the higher the number (i.e. Japanese>European>America), the higher the mpg tends to be.
   
@@ -151,13 +162,13 @@ summary(lm.fit)
 ```
 
 i. Is there a relationship between the predictor and the response?  
-Yes. 
+**Answer**: Yes, there is a statistically significant relationship between the predictor and response(i.e. the null hypothesis is rejected)
 
 ii. How strong is the relationship between the predictor and the response?  
-The relationship is strong (i.e. above significance level)
+**Answer**: The relationship is strong (i.e. above significance level, both have three *** signs)
 
 iii. Is the relationship between the predictor and the response positive or negative?  
-Negative. 
+**Answer**:Negative. 
 
 iv. What is the predicted mpg associated with a horsepower of 98? What are the associated 95% confidence and prediction intervals?  
 
@@ -187,9 +198,13 @@ lines(nd$horse, p_pred[,"lwr"], col="blue", type="b", pch="*")
 
 (c) Plot the 95% confidence interval and prediction interval in the same plot as (b) using different colours and legends.  
 
+**Answer**: Please see above chart.
+
 
 5. Logistic regression
 Using the Boston data set, fit classification models in order to predict whether a given suburb has a crime rate above or below the median. Explore logistic regression models using various subsets of the predictors. Describe your findings. 
+
+**Answer**:
 Using `crim` as the response, there are 13 variables in the Boston dataset which can be used as predictors. 
 We'll devide them into 3 sets and run logistic regrssion on them.
 
@@ -198,7 +213,6 @@ We'll devide them into 3 sets and run logistic regrssion on them.
 ```{r}
 library(MASS)
 b<-Boston
-#b$chas=factor(b$chas)
 b$aboveMean<-ifelse(b$crim>=median(b$crim),1,0)
 
 glm1.fit<-glm(aboveMean~zn+indus+chas+nox,data=b,family=binomial)
@@ -212,14 +226,26 @@ summary(glm3.fit)
 The following columns have minimum impact on the response, i.e. they are not useful predictors, so it is fine to leave them out of the model: 
   `rm`
   `ptratio`
-  `chas` (only .)
-  `zn` (only .)
+  `chas` (only one `.` sign)
+  `zn` (only one `.` sign)
 
 6. Resampling methods  
 
 Suppose that we use some statistical learning method to make a prediction for the response Y for a particular value of the predictor X. Carefully describe how we might estimate the standard deviation of our prediction.  
 
-There are three different ways 
+**Answer**: 
+
+* We can use the `predict()` to check the variance of our prediction (i.e. compare our prediction with the result in testing data).
+
+* For **regression problem**, we can use `MSE`(Mean squared error) to measure the accuracy of a model/prediction. MSE is the sum of residual sum of squares(RSS) divided by number of predictions. The smaller the MSE, the better the prediction. 
+
+  + `Expected test MSE` is equal to `squared bias + variance + irreducible error`. 
+  
+* For **classification problem**, we can use `error rate` to measure accuracy. We can do this by constructing a Confusion Matrix, and check the error rate which is equal to `# of wrong predictions / total # of predictions`. The lower the error rate, the better the prediction. 
+
+* Standard deviation is the square root of variance, so getting the variance will tell us the standard deviation of the prediction.
+
+
 
 7. Resampling methods
 We will now perform cross-validation on a simulated data set.  
@@ -261,39 +287,33 @@ df<-data.frame(x,y)
 # first model Y = β0 + β1X + ε
 glm.fit <- glm(y~x,data=df)
 cv.err <- cv.glm(df,glm.fit)
-cv.err$delta
 cv.err2<-cv.glm(df,glm.fit,K=10)
-cv.err2$delta
-print(paste("The LOOCV error for first model is",cv.err$delta[1]," and the 10-fold CV error for the first model is",cv.err2$delta[1]))
+print(paste("The LOOCV error for first model is",cv.err$delta[1]," and the 10th-fold CV error for the first model is",cv.err2$delta[1]))
 
 # second model Y =β0 +β1X+β2X^2 +ε
-glm.fit2<-glm(y~x+poly(x,2),data=df)
+glm.fit2<-glm(y~poly(x,2),data=df)
 cv.err<-cv.glm(df,glm.fit2)
-cv.err$delta
 cv.err2<-cv.glm(df,glm.fit2,K=10)
-cv.err2$delta
-print(paste("The LOOCV error for second model is",cv.err$delta[1]," and the 10-fold CV error for the second model is",cv.err2$delta[1]))
+print(paste("The LOOCV error for second model is",cv.err$delta[1]," and the 10th-fold CV error for the second model is",cv.err2$delta[1]))
 
 # third model Y =β0 +β1X+β2X2 +β3X3 +ε
-glm.fit3<-glm(y~x+poly(x,3),data=df)
+glm.fit3<-glm(y~poly(x,3),data=df)
 cv.err<-cv.glm(df,glm.fit3)
-cv.err$delta
 cv.err2<-cv.glm(df,glm.fit3,K=10)
-cv.err2$delta
-print(paste("The LOOCV error for the third model is",cv.err$delta[1]," and the 10-fold CV error for the third model is",cv.err2$delta[1]))
+print(paste("The LOOCV error for the third model is",cv.err$delta[1]," and the 10th-fold CV error for the third model is",cv.err2$delta[1]))
 
 # fourth model Y =β0 +β1X+β2X2 +β3X3 +β4X4 +ε. 
-glm.fit4<-glm(y~x+poly(x,4),data=df)
+glm.fit4<-glm(y~poly(x,4),data=df)
 cv.err<-cv.glm(df,glm.fit4)
-cv.err$delta
 cv.err2<-cv.glm(df,glm.fit4,K=10)
-cv.err2$delta
+print(paste("The LOOCV error for the fourth model is",cv.err$delta[1]," and the 10th-fold CV error for the fourth model is",cv.err2$delta[1]))
+
 ```
 (d) Repeat (c) using random seed 46, and report your results. Are your results the same as what you got in (c)? Why?  
 
-The results are not the same as when using `set.seed(23)`. This is because `set.seed()` generates a random set of numbers.
+**Answer**: The results are the not same as when using `set.seed(23)`, but they are very similar. This is because `set.seed()` generates a random set of numbers.
 
-```{r}
+```{r warning=FALSE}
 set.seed(46)
 y = rnorm(500)
 x = 4 - rnorm(500)
@@ -303,13 +323,40 @@ df<-data.frame(x,y)
 # first model Y = β0 + β1X + ε
 glm.fit <- glm(y~x,data=df)
 cv.err <- cv.glm(df,glm.fit)
-cv.err$delta
 cv.err2<-cv.glm(df,glm.fit,K=10)
-cv.err2$delta
 print(paste("The LOOCV error for first model is",cv.err$delta[1]," and the 10-fold CV error for the first model is",cv.err2$delta[1]))
+
+
+# second model Y =β0 +β1X+β2X^2 +ε
+glm.fit2<-glm(y~poly(x,2),data=df)
+cv.err<-cv.glm(df,glm.fit2)
+cv.err2<-cv.glm(df,glm.fit2,K=10)
+print(paste("The LOOCV error for second model is",cv.err$delta[1]," and the 10th-fold CV error for the second model is",cv.err2$delta[1]))
+
+# third model Y =β0 +β1X+β2X2 +β3X3 +ε
+glm.fit3<-glm(y~poly(x,3),data=df)
+cv.err<-cv.glm(df,glm.fit3)
+cv.err2<-cv.glm(df,glm.fit3,K=10)
+print(paste("The LOOCV error for the third model is",cv.err$delta[1]," and the 10th-fold CV error for the third model is",cv.err2$delta[1]))
+
+# fourth model Y =β0 +β1X+β2X2 +β3X3 +β4X4 +ε. 
+glm.fit4<-glm(y~poly(x,4),data=df)
+cv.err<-cv.glm(df,glm.fit4)
+cv.err2<-cv.glm(df,glm.fit4,K=10)
+print(paste("The LOOCV error for the fourth model is",cv.err$delta[1]," and the 10th-fold CV error for the fourth model is",cv.err2$delta[1]))
 ```
 (e) Which of the models in (c) had the smallest LOOCV and 10-fold CV error? Is this what you expected? Explain your answer.  
 
-The fourth model has the smallest LOOCV and 10-fold CV error. This is what I expected 
+**Answer**: The fourth model has the smallest LOOCV and 10-fold CV error. This is what I expected because our model data has a 4th degree polynomial relationship.
 
 (f) Comment on the statistical significance of the coefficient estimates that results from fitting each of the models in (c) using least squares. Do these results agree with the conclusions drawn based on the cross-validation results?
+
+**Answer**: 
+Yes, these results agree with the conclusions drawn based on CV results. All coefficients have three stars `***` signs, indicating strong significant of `x` to `y`.
+
+```{r}
+summary(glm.fit)
+summary(glm.fit2)
+summary(glm.fit3)
+summary(glm.fit4)
+```
