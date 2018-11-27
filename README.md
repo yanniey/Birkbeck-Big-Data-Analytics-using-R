@@ -643,6 +643,114 @@ Decision trees have high variance (a disadvantage)
     + if we don't know which one to use, use radial (the whole list of options are: linear SVM, RBF SVM (Radial Basis Function), Poly SVM, Sigmoid SVM)
 
 
-## Week 9. Clustering
+## Week 9. Clustering (Unsupervised Learning)
+
+1. **Clustering** refers to a set of techniques for finding subgroups, or clusters, in a dataset
+
+2. Use **variance** to measure whether members within a group are similar to each other
+
+3. **K-means clustering**: To perform K-means clustering, one must first specify the desired number of clusters K. The objective is to have a minimal "within-cluster-variation”, i.e. the elements within a cluster should be as similar as possible.
+
+  * We can get the minimal "within-cluster-variation" by minimising the sum of pairwise
+squared Euclidean distances.
+
+  * "Within-cluster-variation" is `W(c)=sum(C)/# of C`
+
+  * Local optimums
+    + Because the K-means algorithm finds a local rather global optimum, it can
+      + get stuck in “local optimums” and
+      + not find the best solution
+      + The results obtained will depend on the initial (random) assignment of each observation
+    + Hence, it is important to
+      + run the algorithm multiple times
+      + with random starting points to find a good solution (i.e. the one with the lowest within-cluster-variation)
+
+  * "**tot.withinss**": The total within-cluster sum of squares. Our objective is to minimise this.
+
+  * Strongly recommend to use a large value of nstart to avoid local optimum (e.g. nstart=100 or 200)
+
+  * It is important to set a random seed before performing K-means clustering - so that we can repeat the result in the future
+
+
+4. Hierarchical Clustering
+
+  * K-Means clustering requires choosing the number of clusters K. If we don’t want to do that, an alternative is to use Hierarchical Clustering.
+
+  * Two types of hierarchical clustering: Agglomerative and Divisive
+
+  * **Agglomerative** (i.e. Bottom-Up)
+    + Start with all points in their own group
+    + Until there is only one cluster, repeatedly: merge the two groups that have the smallest dissimilarity
+    + this method is easier than divisive. 
+    + the disadvantage is that merging is **not reversible** 
+
+  * **Divisive** (i.e., top-down)
+    + Start with all points in one cluster
+    + Until all points are in their own cluster, repeatedly: split the group into two resulting in the biggest dissimilarity
+    + the advantage is that you may be able to stop early
+    + the spliting is linear, while the agglomerative is quadruple 
+
+  * **Hierarchical Agglomerative Clustering (HAC) Algorithm**
+    + Start with each point as a separate cluster (n clusters)
+    + Calculate a measure of dissimilarity between all points/clusters
+    + Fuse two clusters that are most similar so that there are now n-1 clusters
+    + Fuse next two most similar clusters so there are now n-2 clusters
+    + Continue until there is only 1 cluster
+
+  * How to define dissimilarity between clusters?
+    There are 4 options:
+    + Single Linkage
+      + **Single linkage score** is the distance of the closest pair (closest neighbour)
+      
+      + Cut interpretation: Cut interpretation: for each observation obsi, there is another observation obsj in its cluster and their distance is <=0.9
+
+      + Shortcomings: Single linkage suffers from **chaining**. In order to merge two groups, only need one pair of points to be close, irrespective of all others. Therefore, clusters can be too spread out, and not as compact as the closest pair are to each other.
+
+    + Complete Linkage
+      + **Complete linkage score** is the distance of the furthest pair (furthest neighbour)
+      + Cut interpretation: for each observation obsi, every observation obsj in its cluster satisfies that their distance is <=5
+      + Shortcomings: Complete linkage avoids chaining, but suffers from **crowding**. Because its score is based on the worst-case dissimilarity between pairs, a point can be closer to points in other clusters than to points in its own cluster. Clusters are compact, but not far apart enough.
+        + example: guess which music you'd like to hear
+
+    + Average Linkage
+      + **Average linkage score** is the average distance across all pairs
+      + Shortcomings: It is not clear what properties the resulting clusters have when we cut an average linkage tree at given height h. Single and complete linkage trees each had simple interpretations.
+
+    + Centroid Linkage
+      + **Centroid linkage score** is the distance between the cluster centroids (cluster average)
+      + Shortcomings: Centroid linkage may produce a dendrogram with inversions – mess up the visualisation, hard to interpret
+      + Inversion: The height of a parent node is lower than the height of its children
+
+    + Single, complete, average linkage are widely used by statisticians. (average and complete are preferred over single)
+      + Average and complete linkage are generally preferred over single linkage, as they tend to yield evenly sized clusters
+      + Single linkage tends to yield extended clusters to which single leaves are
+fused one by one
+
+    + Centroid linkage is often used in biology.
+      + It is simple, easy to understand and easy to implement
+      + But it may have inversion (i.e. parent node being lower than child node)
+
+5. `dist()` function for Hierarchical Clustering
+  * `dist()` computes the distances between the rows of a data matrix. If a matrix A has n rows, then dist(A) is of size `(n-1)×(n-1)`.
+
+6. `cutree()` function
+  * To determine the cluster labels for each observation associated with a given cut of the dendrogram, we can use the cutree() function
+
+7. Choice of Dissimilarity Measure
+  * Euclidean distance vs. correlation based distance
+
+  * Using **Euclidean distance**, customers who have purchases very little will be clustered together
+
+  * Using **correlation measure**, customers who tend to purchase the same types of products will be clustered together even if the magnitude of their purchase may be quite different
+
+8. Need to standardise the Variables
+  * If the variables are measured on different scales, we might want to scale the variables to have standard deviation one
+  
+  * In this way each variable will in effect be given equal importance in the hierarchical/K-means clustering performed
+
+  * This actually applies to many statistical learning methods as a pre- processing step.
+  * in r, use `scale(x)` to standarise the variables
+
+
 ## Week 10. Dimension Reduction
 ## Week 11. Applications
