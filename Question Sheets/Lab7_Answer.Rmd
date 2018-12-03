@@ -27,15 +27,18 @@ titanic3$survived01<-as.factor(titanic3$survived)
 
 ```{r message=FALSE, warning=FALSE}
 library(randomForest)
-titanic3<-na.omit(titanic3)
+titanic<-na.omit(titanic3)
 ```
 
 3) Use a seed to set half of the dataset to be training dataset and the other half to be test dataset.
 
 ```{r}
 set.seed(8)
-train<-sample(nrow(titanic3),nrow(titanic3)/2)
-titanic3.test<-titanic3[-train,]
+train<-sample(nrow(titanic),nrow(titanic)/2)
+test<-titanic[-train,] # test set
+x_test<-test[,-c(2,9)] # remove the 2nd and 9th column because they are survived and survived01
+survived.test<-titanic$survived[-train]
+survived01.test<-titanic$survived01[-train]
 ```
 4) Use the training dataset to build a bagged model for
   * y: survived
@@ -45,10 +48,15 @@ Compute the mean error rate on the test dataset.
 Remark: You might get a warning message, saying that `In randomForest.default(m, y, ...) : The response has five or fewer unique values. Are you sure you want to do regression?` Ignore the message for now. It’s doable and you will get a bagged model anyway.
 
 ```{r}
-survived01.test<-titanic3[-train,1]
-bag.titanic3<-randomForest(survived~.-survived-survived01,titanic3,subset=train,mtry=10)
-yhat.titanic3<-predict(bag.titanic3,newdata=titanic3.test)
-table(yhat.titanic3,survived01.test)
+set.seed(6)
+bag.titanic<-randomForest(survived~.-survived01,data=titanic,subset=train,mtry=7,importance=TRUE)
+print(bag.titanic)
+
+
+yhat.titanic<-predict(bag.titanic,newdata=test)
+yhat.titanic.class<-ifelse(yhat.titanic<=0.5,"0","1")
+print(mean(yhat.titanic.class!=survived.test)) # this is the mean error rate
+
 ```
 
 5) Using the same training and test dataset, build a bagged model for
@@ -57,6 +65,11 @@ table(yhat.titanic3,survived01.test)
   a) Find out on how many trees your model is built and the OOB error 
   b) Compute the mean error rate on the training dataset.
 
+```{r}
+bag.titanic3.survived01<-randomForest(survived01~.-survived-survived01,data=titanic3,subset=train,mtry=5)
+yhat.titanic3.survived01<-predict(bag.titanic3.survived01,newdata=titanic3.test)
+mean((yhat.titanic3.survived01-titanic3.test$survived01)^2)
+```
 
 6) Plot the variable importance plot for the two bagged models you built in 4) and 5) and comment whether the importance coincides.
 

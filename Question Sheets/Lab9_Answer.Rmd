@@ -1,0 +1,120 @@
+---
+title: "Week 9 Clustering"
+author: "Anyi Guo"
+date: "27/11/2018"
+output: word_document
+---
+## 1. K-Means Clustering 
+```{r setup, include=FALSE}
+library(datasets)
+dat <- attitude[,c(3,4)]
+```
+1) Plot the dataset dat.
+```{r}
+plot(dat)
+```
+
+2) Let k = 2 and nstart = 1. Set a seed and then perform the k-means clustering based on the two
+parameters.
+```{r}
+set.seed(7)
+km.out<-kmeans(dat,2,nstart=1)
+```
+3) Report the tot.withinss.
+```{r}
+km.out$tot.withinss
+```
+4) Plot the two clusters with two different colours.
+```{r}
+plot(dat,col=(km.out$cluster+1))
+```
+5) Let nstart = 100 and repeat 2)-4). Compare the two tot.withinss.
+```{r}
+km.out2<-kmeans(dat,2,nstart=100)
+km.out2$tot.withinss
+plot(dat,col=(km.out2$cluster+1))
+```
+The two `tot.withinss` are the same for `nstart = 1` and `nstart=100`
+
+6) Write a for-loop to record the tot.withinss when k is 1 to 15. Plot the result.
+```{r}
+for(k in 1:15){
+        km.out<-kmeans(dat,k,nstart=100)
+        plot(dat,col=(km.out$cluster+1))
+}
+```
+7) Use the elbow method to identify the best k.
+With the elbow method, the solution criterion value (within groups sum of squares) will tend to decrease substantially with each successive increase in the number of clusters.
+```{r}
+df<-matrix(nrow = 15,ncol=2)
+for(k in 1:15){
+        km.out<-kmeans(dat,k,nstart=100)
+        df[k,2]<-km.out$tot.withinss
+}
+colnames(df)<-c("k","tot.withinss")
+df[,1]<-1:15
+
+plot(df,pch=20,cex=2)
+```
+The elbow seems to be when `k = 6`?
+
+8) Plot the k clusters with the best k you get in 7).
+```{r}
+km.out<-kmeans(dat,6,nstart=100)
+plot(dat,col=(km.out$cluster))
+```
+
+## 2. Hierarchical Clustering
+Setup and load the data
+```{r}
+library(readr)
+DatasetName <- read_csv("https://github.com/jstjohn/IntroToStatisticalLearningR-/blob/master/data/Ch10Ex11.csv",header=F)
+```
+
+9) Read the description of the dataset again. Do you think the current layout of the dataset is a natural way to present the relationship between tissue samples (as columns) and genes (as rows)? Note each tissue may contain hundreds of genes. If not, transform the dataset in a more natural way.
+```{r}
+# this is so that we can understand it better - it should have no impact on the calculation/clustering
+DatasetName<-t(DatasetName)
+```
+10) Calculate the dissimilarity metric.
+Hint: We will take as our dissimilarity metric between the ith and jth samples to be 1 − rij, where rij is the correlation between the two samples.
+Notice that this function will have its smallest value (of zero) if rij = 1 i.e. the two samples are perfectly correlated.
+This function will have its largest value (of two) if rij = −1 i.e. the two samples are perfectly anti-correlated.
+
+```{r}
+D<-as.dist(1-cor(t(DatasetName)))
+# we are transposing the dataframe again becase the first t() should just be for understanding. We should revert it back so that we can do H-clustering.
+
+```
+
+11) Apply hierarchical clustering to the samples using correlation based distance for
+a. Complete linkage
+b. Average linkage
+c. Single linkage
+d. Centroid linkage
+
+```{r}
+hc.complete<-hclust(dist(D),method="complete")
+hc.average<-hclust(dist(D),method="average")
+hc.single<-hclust(dist(D),method="single")
+hc.centroid<-hclust(dist(D),method="centroid")
+```
+
+12) Plot the four dendrograms in the same plot by using par(mfrow = c(i,j)), where i is the number of rows and j is the number of columns in the plot.
+
+```{r}
+par(mfrow=c(1,4))
+plot(hc.complete,main="Complex Linkage",xlab="",ylab="",cex=0.9)
+plot(hc.average,main="Average Linkage",xlab="",ylab="",cex=0.9)
+plot(hc.single,main="Single Linkage",xlab="",ylab="",cex=0.9)
+plot(hc.centroid,main="Centroid Linkage",xlab="",ylab="",cex=0.9)
+```
+
+
+13) Do the genes separate the samples into the two groups? To answer this question, we need to generate a confusion matrix on the predicted and true number of healthy/diseased patients.
+```{r}
+cutree(hc)
+```
+14) Do your results depend on the type of linkage used?
+
+
