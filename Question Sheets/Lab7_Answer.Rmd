@@ -58,6 +58,7 @@ yhat.titanic.class<-ifelse(yhat.titanic<=0.5,"0","1")
 print(mean(yhat.titanic.class!=survived.test)) # this is the mean error rate
 
 ```
+Mean error rate is 0.22
 
 5) Using the same training and test dataset, build a bagged model for
   * y: survived01
@@ -66,16 +67,63 @@ print(mean(yhat.titanic.class!=survived.test)) # this is the mean error rate
   b) Compute the mean error rate on the training dataset.
 
 ```{r}
-bag.titanic3.survived01<-randomForest(survived01~.-survived-survived01,data=titanic3,subset=train,mtry=5)
-yhat.titanic3.survived01<-predict(bag.titanic3.survived01,newdata=titanic3.test)
-mean((yhat.titanic3.survived01-titanic3.test$survived01)^2)
+set.seed(6)
+bag.titanic.survived01<-randomForest(survived01~.-survived,data=titanic,subset=train,mtry=7,importance=TRUE)
+print(bag.titanic.survived01)
 ```
+```{r}
+bag.pred01<-predict(bag.titanic.survived01,newdata=test, type="class")
+print(mean(bag.pred01!=survived.test))
+```
+
+* Number of trees: `500`
+* No of variables tried at each split:7 
+* OOB (out-of-bag) error rate is `23.56%`. OOB error rate is only available for classification trees.
+
+
 
 6) Plot the variable importance plot for the two bagged models you built in 4) and 5) and comment whether the importance coincides.
 
+Yes, the importance coincides: sex is the most important factor, followed by fare (Passenger fare) and sibsp (# of siblings / spouses aboard the Titanic)
+
+```{r}
+par(mfrow=c(2,2))
+varImpPlot(bag.titanic)
+varImpPlot(bag.titanic.survived01)
+
+
+
+#The barplot can be:
+barplot(sort(importance(bag.titanic)[,1], decreasing = TRUE),
+xlab = "Relative Importance",
+horiz = TRUE,
+col = "red",
+las=1 #The las argument will allow rotation of 90 degrees for labels
+)
+```
 
 7) Plot a graph that shows the test error rate of a single tree (red dashed line), the mean test error rates for majority vote (black curve) and the test error rates for averaging the probabilities (blue curve), both in relation to the number of trees. Add a legend if you can.
 
+```{r}
+# calculate the black line - Test error rate for majority vote
+yhat.ter.mv<-rep(0,300)
+
+for(i in 1:300){
+        set.seed(4) # set a seed because randomForest is a random function
+        bag.titanic<-randomForest(survived~.-survived01,data=titanic,subset=train,mtry=10,ntree=i)
+        yhat.titanic<-predict(bag.titanic,newdata=test)
+        test.error.mv[i]<-mean(yhat.titanic!=test[,2])
+}
+
+# plot the black line
+
+plot(test.error.mv, xlab="Number of Bootstrap Data Sets",
+ylab="Test Error Rate", type="l")
+# plot the red dashed line
+abline(h=test.,lty=2,col="red")
+
+
+```
 
 8) Plot a graph that shows the best value of mtry for the random forest model
 • y: survived01

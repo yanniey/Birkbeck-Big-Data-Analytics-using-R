@@ -1,0 +1,75 @@
+---
+title: "Lab10_Answer"
+author: "Anyi Guo"
+date: "04/12/2018"
+output: pdf_document
+---
+
+```{r}
+states<-row.names(USArrests)
+states[1:10]
+names(USArrests)
+```
+1) Calculate the mean and variance of each column, by using apply() function.
+Hint: `apply(dataset, 1, func)` is to apply the func to each row of dataset, and `apply(dataset, 2, func)` is to apply the func to each column of dataset.
+```{r}
+# mean
+print(apply(USArrests,2,mean))
+# variance
+print(apply(USArrests,2,var))
+```
+2) What conclusions can you draw from 1)? And consequently what transformation would you do to your
+dataset?
+Assault has very high variance compared ot the other variables - we should scale the variables.
+
+3) Perform principal component analysis using the prcomp() function.
+```{r}
+pr.arrest<-prcomp(USArrests,scale=TRUE)
+```
+4) Check the results, report the number of PCs and their center, scale, and rotation.
+There are 4 PCs.
+Center
+```{r}
+pr.arrest$center
+```
+Scale
+```{r}
+pr.arrest$scale
+```
+Rotation:
+```{r}
+pr.arrest$rotation
+```
+5) Plot the first two PCs.
+
+```{r}
+biplot(pr.arrest,scale=TRUE)
+```
+
+6) What are the standard deviation of each principal component? Based on this result, calculate the variance explained by each PC and the proportion of variance explained by each PC.
+```{r}
+# standard deviation
+pr.arrest$sdev
+# variance
+pr.arrest$sdev^2
+# proportion of variance explained
+pr.arrest.var<-pr.arrest$sdev^2
+pve<-pr.arrest.var/sum(pr.arrest.var)
+pve
+```
+First PC: 62.0%
+Second PC: 24.7%
+Third PC:8.9%
+Fourth PC: 4.3%
+
+7) Plot the PVE explained by each component as well as the cumulative PVE. Hint: the cumulative PVE can be obtained by the cumsum() function.
+
+For each component:
+```{r}
+plot(pve,xlab="Principal Component", ylab="Proportion of Variance Explained", type="b",ylim=c(0,1))
+```
+
+Cumulative PVE:
+```{r}
+plot(cumsum(pve),xlab="Principal Component", ylab="Cumulative Proportion of Variance Explained", type="b",ylim=c(0,1))
+```

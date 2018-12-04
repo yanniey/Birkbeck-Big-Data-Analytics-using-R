@@ -752,5 +752,105 @@ fused one by one
   * in r, use `scale(x)` to standarise the variables
 
 
-## Week 10. Dimension Reduction
+## Week 10. Dimension Reduction (Principal Component Analysis) - Unsupervised approach
+
+1. PCA can be used for reducing dimensionality (the number of features), and for data visualisation
+
+2. Given a set of points, how do we know if they can be compressed with PCA?
+  * By looking at the **covariance**(the relationship between two variables) between points.
+
+3. 
+  * The **first** principal component is the best straight line you can fit to the **data**.
+  * The **second** principal component is the best straight line you can fit to the **errors** from the first principal component. Second PC is perpendicular to the first PC. 
+  * The **third** principal component is the best straight line you can fit to the errors from the first and second principal components, etc. Third PC is perpendicular to the first and second PC. 
+
+4. PCA: can only find a linear relationship of the factors we have. For a non-linear relationship, we should use log transformation.
+
+5. Matrix size: `(m × n) × (n × k) = m × k` 
+
+6. Covariance matrix, Eigenvectors and Eigenvalues
+  * Given a matrix A, and a vector x, when A is used to transform x, the result is `y = Ax`
+  * **Eigenvector**: vectors which does not change its direction under transformation, however allow the vector magnitude to vary by scalar `λ`.
+    +  such special x are called **eigenvectors** and λ are called **eigenvalues**
+    + eigenvector and eigenvalues are in pairs
+
+7. All the eigenvectors of a symmetric matrix **are perpendicular**, i.e., at right angles to each other, no matter how many dimensions there are.
+  * In maths terminologies, another word for perpendicular is **orthogonal**.
+  * Since the length of an eigenvector does not affect its direction, we can scale
+(or standardise) eigenvectors so that they have the same length of 1.
+  * If we scale the eigenvector, the eigenvalue stays the same
+  * Eigenvectors can only be found for square matrices. (i.e vertical and horizontal axis should be of the same degree)
+  * For a matrix `Ap×p` , there are **at most p pairs of (eigenvector, eigenvalue)**.
+
+8. How PCA works
+  * Given a dataset DS with n observations and p features, we can build a covariance matrix `Cp×p`
+  * Compute a set of pairs of (eigenvector, eigenvalue)
+    ```r
+    (e1, 0.382), (e2, 2.618), (e3, 1.439), ..., (ep, 0.00096)
+    ```
+  * Sort them by the eigenvalues in a descending order
+    ```r
+    (e2, 2.618), (e3, 1.439), (e1, 0.382), ...
+    ```
+  * The first eigenvector is the first principal component (PC), the second eigenvector is the second PC, and so on.
+    ```
+    The first PC: e2
+    The second PC: e3
+    The third PC: e1
+    ```
+  * Takeaway: **The larger the eigenvalue is, the more important the direction/Principle Components is**
+
+9. How to do PCA
+  * Step 1: Set new center/origin 
+  * Step 2: Calculate the covariance matrix
+  * Step 3: Calculate the eigenvectors and eigenvalues of the covariance matrix
+  * Step 4: Select the Principle Components (PC) - first PC and second PC are perpendicular to each other
+
+10. Do PCA in R:
+  ```r
+  > DF <- data.frame(
+       Maths=c(80, 90, 95),
+       Science=c(85, 85, 80), 
+       English=c(60, 70, 40), Music=c(55, 45, 50))
+  > pr.marks <- prcomp(DF, scale=FALSE)
+  > pr.marks$rotation #omit PC3
+           PC1          PC2 
+    Maths 0.27795606 0.76772853 
+    Science -0.17428077 -0.08162874 
+    English -0.94200929 0.19632732 
+    Music 0.07060547 -0.60447104
+  > biplot(pr.marks, scale=FALSE)
+  # biplot will only plot two PCs (i.e. two dimensions)
+  ```
+
+11. Scaling
+  * We use scaling because variables may have different units, and different variance
+  * Calculate variance for each variable:
+    ```r
+    apply(DF,2,var)
+    ```
+
+  * If performing PCA on the unscaled data, then the first PC will place almost all its weighting on English (most variance variable) but little on Science (least variance variable)
+
+  * We usually scale the variables to have **standard deviation one** before we perform PCA.
+
+  * Use scaling in R:
+  ```r
+  pr.marks.s <- prcomp(DF, scale = TRUE)
+  biplot(pr.marks.s, scale=0)
+  ```
+
+12. The Proportion of Variance Explained ("PVE", i.e. how much information is lost by doing dimension reduction)
+  * Scree plot vs. cumulative PVE
+
+13. Deciding How Many PCs to Use
+
+  * Scree plot: use the elbowing method to determine when to stop using more Principle Components 
+
+  * In practice, we look at first few PCs to find interesting patterns.
+    + If no interesting patterns are found, further PCs are unlikely to be interesting
+    + If first few PCs are interesting, continue to look at subsequent PCs, until no further interesting patterns are found
+
+
+
 ## Week 11. Applications
