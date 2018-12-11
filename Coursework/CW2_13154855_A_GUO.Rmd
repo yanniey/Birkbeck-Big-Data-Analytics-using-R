@@ -5,26 +5,101 @@ date: "20/11/2018"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+1. Decision Trees (10% | 20%) This question relates to the following figure.
+(a) Sketch the tree corresponding to the partition of the predictor space illustrated in the left-hand panel of the figure above. The numbers inside the boxes indicate the mean of Y within each region.
+(b) Create a diagram similar to the left-hand panel of the figure, using the tree illustrated in the right-hand panel of the same figure. You should divide up the predictor space into the correct regions, and indicate the mean for each region.
+2. Regression Trees (15% | 20%)
+In the lab, a classification tree was applied to the Carseats data set after converting Sales into a qualitative response variable. Now we will seek to predict Sales using regression trees and related approaches, treating the response as a quantitative variable.
+(a) Split the data set into a training set and a test set.
+(b) Fit a regression tree to the training set. Plot the tree, and interpret the results. What test error rate do you obtain?
+(c) Use cross-validation in order to determine the optimal level of tree complexity. Does pruning the tree improve the test error rate?
+ 1
+(d) Use the bagging approach in order to analyze this data. What test error rate do you obtain? Use the importance() function to determine which variables are most important.
+(e) Use random forests to analyze this data. What test error rate do you obtain? Use the importance() function to determine which variables are most important. Describe the effect of m, the number of variables considered at each split, on the error rate obtained.
+3. Classification Trees (15% | 20%) This problem involves the OJ data set which is part of the ISLR package.
+(a) Create a training set containing a random sample of 800 observations, and a test set containing the remaining observations.
+(b) Fit a tree to the training data, with Purchase as the response and the other variables as predictors. Use the summary() function to produce summary statistics about the tree, and describe the results obtained. What is the training error rate? How many terminal nodes does the tree have?
+(c) Type in the name of the tree object in order to get a detailed text output. Pick one of the terminal nodes, and interpret the information displayed.
+(d) Create a plot of the tree, and interpret the results.
+(e) Predict the response on the test data, and produce a confusion matrix comparing the test labels to the predicted test labels. What is the test error rate?
+(f) Apply the cv.tree() function to the training set in order to determine the optimal tree size.
+(g) Produce a plot with tree size on the x-axis and cross-validated classification error rate on the y-axis.
+(h) Which tree size corresponds to the lowest cross-validated classification error rate?
+(i) Produce a pruned tree corresponding to the optimal tree size obtained using cross-validation. If cross-validation does not lead to selection of a pruned tree, then create a pruned tree with five terminal nodes.
+(j) Compare the training error rates between the pruned and unpruned trees. Which is higher?
+(k) Compare the test error rates between the pruned and unpruned trees. Which is higher?
+4. SVM (15% | 20%) In this problem, you will use support vector approaches in order to predict whether a given car gets high or
+low gas mileage based on the Auto data set.
+(a) Create a binary variable that takes on a 1 for cars with gas mileage above the median, and a 0 for cars
+with gas mileage below the median.
+(b) Fit a support vector classifier to the data with various values of cost, in order to predict whether a car gets high or low gas mileage. Report the cross-validation errors associated with different values of this parameter. Comment on your results.
+(c) Now repeat (b), this time using SVMs with radial and polynomial basis kernels, with different values of gamma and degree and cost. Comment on your results.
+(d) Make some plots to back up your assertions in (b) and (c).
+Hint: In the lab, we used the plot() function for svm objects only in cases with p = 2. When p > 2, you can
+use the plot() function to create plots displaying pairs of variables at a time. Essentially, instead of typing plot(svmfit , dat)
+where svmfit contains your fitted model and dat is a data frame containing your data, you can type
+2
+
+plot(svmfit , dat , x1~x4)
+in order to plot just the first and fourth variables. However, you must replace x1 and x4 with the correct
+variable names. To find out more, type ?plot.svm.
+5. SVM (15% | 0%)
+Here we explore the maximal margin classifier on a toy data set. (a) We are given n = 7 observations in p = 2 dimensions. For each observation, there is an associated class label.
+Sketch the observations.
+(b) Sketch the optimal separating hyperplane, and provide the equation for this hyperplane of the following form.
+β0 + β1X1 + β2X2 = 0
+(c) Describe the classification rule for the maximal margin classifier. It should be something along the lines of “Classify to Red if β0 + β1X1 + β2X2 > 0, and classify to Blue otherwise.” Provide the values for β0, β1, and β2.
+(d) On your sketch, indicate the margin for the maximal margin hyperplane.
+(e) Indicate the support vectors for the maximal margin classifier.
+(f) Argue that a slight movement of the seventh observation would not affect the maximal margin hyperplane.
+(g) Sketch a hyperplane that is not the optimal separating hyperplane, and provide the equation for this hyperplane.
+(h) Draw an additional observation on the plot so that the two classes are no longer separable by a hyperplane.
+6. Hierarchical clustering (10% | 20%) Consider the USArrests data. We will now perform hierarchical clustering on the states.
+(a) Using hierarchical clustering with complete linkage and Euclidean distance, cluster the states.
+(b) Cut the dendrogram at a height that results in three distinct clusters. Which states belong to which clusters?
+(c) Hierarchically cluster the states using complete linkage and Euclidean distance, after scaling the variables to have standard deviation one.
+ 3
+
+(d) What effect does scaling the variables have on the hierarchical clustering obtained? In your opinion, should the variables be scaled before the inter-observation dissimilarities are computed? Provide a justification for your answer.
+
+7. PCA and K-Means Clustering (20% | 0%) In this problem, you will generate simulated data, and then perform PCA and K-means clustering on the data.
+(a) Generate a simulated data set with 20 observations in each of three classes (i.e. 60 observations total), and 50 variables.
+Hint: There are a number of functions in R that you can use to generate data. One example is the rnorm() function; runif() is another option. Be sure to add a mean shift to the observations in each class so that there are three distinct classes.
+
+```{r}
+set.seed(2)
+data<-matrix(data=rnorm(60),nrow=20,ncol=3)
 ```
 
-## R Markdown
+(b) Perform PCA on the 60 observations and plot the first two principal components’ eigenvector. Use a different color to indicate the observations in each of the three classes. If the three classes appear separated in this plot, then continue on to part (c). If not, then return to part (a) and modify the simulation so that there is greater separation between the three classes. Do not continue to part (c) until the three classes show at least some separation in the first two principal component eigenvectors.
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+```{r}
+CovMatrix<-cov(data)
+eigen(CovMatrix)
+```
+First eigenvector is: 
+```{r}
+eigen(CovMatrix)$vectors[,1]
 ```
 
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+Second eigenvector is:
+```{r}
+eigen(CovMatrix)$vectors[,2]
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+Plot the first two PCs:
+```{r}
+pr.data<-prcomp(data,scale=TRUE)
+biplot(pr.data, scale=FALSE,pch=20,col=c("blue","green","red"))
+```
+
+
+
+
+
+(c) Perform K-means clustering of the observations with K = 3. How well do the clusters that you obtained in K-means clustering compare to the true class labels?
+Hint: You can use the table() function in R to compare the true class labels to the class labels obtained by clustering. Be careful how you interpret the results: K-means clustering will arbitrarily number the clusters, so you cannot simply check whether the true class labels and clustering labels are the same.
+(d) Perform K-means clustering with K = 2. Describe your results.
+(e) Now perform K-means clustering with K = 4, and describe your results.
+(f) Now perform K-means clustering with K = 3 on the first two principal components, rather than on the raw data. That is, perform K-means clustering on the 60 × 2 matrix of which the first column is the first principal component’s corresponding eigenvector, and the second column is the second principal component’s corresponding eigenvector. Comment on the results.
+(g) Using the scale() function, perform K-means clustering with K = 3 on the data after scaling each variable to have standard deviation one. How do these results compare to those obtained in (b)? Explain.

@@ -43,7 +43,7 @@ pr.arrest$rotation
 5) Plot the first two PCs.
 
 ```{r}
-biplot(pr.arrest,scale=TRUE)
+biplot(pr.arrest,scale=FALSE)
 ```
 
 6) What are the standard deviation of each principal component? Based on this result, calculate the variance explained by each PC and the proportion of variance explained by each PC.

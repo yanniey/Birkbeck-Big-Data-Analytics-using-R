@@ -852,5 +852,99 @@ fused one by one
     + If first few PCs are interesting, continue to look at subsequent PCs, until no further interesting patterns are found
 
 
-
 ## Week 11. Applications
+
+1. [Water algae dataset in UCI's machine learning repository](http://archive.ics.uci.edu/ml/datasets/Coil+1999+Competition+Data)
+
+rug() and jitter()
+  * **jitter**: Add a small amount of noise to a numeric vector.
+  * **rug**: Adds a set of tick marks along the base of a plot.
+
+2. The process
+  * Descriptive analysis (taking a look at the data)
+  * Cleaning the data
+  * Predictive analysis
+
+3. Dealing with missing or unknown values
+  * Remove unknown values
+  * Fill in the unknown values by different values
+  
+  * Remove rows with missing values
+  ```r
+  # return rows which have missing data
+  algae[!complete.cases(algae),]
+  # check how many rows have missing data
+  nrow(algae[!complete.cases(algae),])
+  # remove rows with missing data
+  algae <- na.omit(algae)
+  ```
+  
+  ```r
+  # manyNAs returns the row numbers that have more than 20% of the columns with an NA. 
+  manyNAs(algae)
+  # remove rows with > 20% columns of missing data
+  algae <- algae[-manyNAs(algae),]
+  ```
+
+  * Fill in the unknown values (e.g. using mean/median/mode)
+  ```r
+  # row 48 has missing value on mxPH
+  algae[48,'mxPH'] <- mean(algae$mxPH,na.rm=T)
+  ```
+
+  * Fill in the unknown values by using correlations
+  ```r
+  cor(algae[,4:18],use="complete.obs") #disregard observations with NAs
+  symnum(cor(algae[,4:18],use="complete.obs")) #Use symbols to represent a given numeric or logical vector or array for correlation
+  ```
+
+  + If two things are related, it doesn't mean that they would be highly correlated.
+  + However, if two things are highly correlated, then there must be a linear relationship between the two things. 
+
+  Noting that PO4 and oPO4 have high correlation, we can now explore the linear correlation between the two variables:
+
+   
+  ```r
+  data(algae)
+  algae <- algae[-manyNAs(algae),]
+  lm(PO4 ~ oPO4, data=algae)
+  ```
+  Then use the linear relationship to predict the value for `PO4` based on `OPO4`
+  ```r
+  algae[28,'PO4'] <- 42.897 + 1.293 * algae[28,'oPO4']
+  ```
+
+  Apply the same to multiple rows:
+  ```r
+  # define the function
+  fillPO4 <- function(oP) {
+    if (is.na(oP))
+      return(NA) #if oPO4's value not available
+    else
+      return(42.897 + 1.293 * oP) #else return the result derived by linear model
+  }
+  
+  # call the function
+  algae[is.na(algae$PO4),'PO4'] <- sapply(algae[is.na(algae$PO4),'oPO4'],fillPO4)
+  ```
+
+4. F-statistics and p-value
+  * To test `H0: β1 = β2 = ... = βm = 0` (i.e. the target variable doe not depend on any of the predictors)
+  * `p-value: 0.0001` means that we are `99.99%` confident that the null hypothesis is not true.
+  * If p value is too high `(>0.1)`, it makes no sense to look at the t-test on individual coefficients
+
+5. anova(): Analysis of Variance Table
+
+6. If the linear model doesn't work, i.e. adjusted R-squared is low (0.3), then it means that the relationship might not be well represented by linear model, so we should use a different model (e.g. tree models)
+
+7. Regression Tree & Random Forest
+  * Choose a smaller mtry value, usually p/3 when building a random forest for regression trees (e.g. mtry = 11/3 = 4)
+
+8. Prediction
+  ```r
+  clean.test.algae <- knnImputation(test.algae,k=10,distData=algae[,1:11])
+  # The distData argument allows you to supply an extra set of data (i.e., the training dataset) where the ten nearest neighbours are to be found for each case with unknowns in the test.algae dataset.
+  ```
+
+9. Performance measurement
+MSE(Mean squared), RSS, randomForest: mean((yhat.rf-clean.algae.test)^2)
