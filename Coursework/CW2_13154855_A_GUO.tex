@@ -1,0 +1,1585 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={CW2\_13154855\_A\_GUO},
+            pdfauthor={Anyi Guo, MSc Data Science, student id: 13154855},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{CW2\_13154855\_A\_GUO}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{Anyi Guo, MSc Data Science, student id: 13154855}
+    \preauthor{\centering\large\emph}
+  \postauthor{\par}
+      \predate{\centering\large\emph}
+  \postdate{\par}
+    \date{20/11/2018}
+
+
+\begin{document}
+\maketitle
+
+\section{BDA/IDAR Coursework 2}\label{bdaidar-coursework-2}
+
+\subsection{1. Decision Trees (10\% \textbar{}
+20\%)}\label{decision-trees-10-20}
+
+This question relates to the following figure. (a) Sketch the tree
+corresponding to the partition of the predictor space illustrated in the
+left-hand panel of the figure above. The numbers inside the boxes
+indicate the mean of Y within each region. (b) Create a diagram similar
+to the left-hand panel of the figure, using the tree illustrated in the
+right-hand panel of the same figure. You should divide up the predictor
+space into the correct regions, and indicate the mean for each region.
+
+\subsection{2. Regression Trees (15\% \textbar{}
+20\%)}\label{regression-trees-15-20}
+
+In the lab, a classification tree was applied to the Carseats data set
+after converting Sales into a qualitative response variable. Now we will
+seek to predict Sales using regression trees and related approaches,
+treating the response as a quantitative variable. (a) Split the data set
+into a training set and a test set.
+
+We'll use 70\% for training set (280 observations) and 30\% for testing
+set (120 observations)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(ISLR)}
+\KeywordTok{library}\NormalTok{(tree)}
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{1}\NormalTok{)}
+\NormalTok{train<-}\KeywordTok{sample}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\KeywordTok{nrow}\NormalTok{(Carseats),}\DecValTok{280}\NormalTok{)}
+\NormalTok{training<-Carseats[train,]}
+\NormalTok{testing<-Carseats[}\OperatorTok{-}\NormalTok{train,]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Fit a regression tree to the training set. Plot the tree, and
+  interpret the results. What test MSE do you obtain?
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tree.train<-}\KeywordTok{tree}\NormalTok{(Carseats}\OperatorTok{$}\NormalTok{Sales}\OperatorTok{~}\NormalTok{.,Carseats,}\DataTypeTok{subset=}\NormalTok{train)}
+\KeywordTok{summary}\NormalTok{(tree.train)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Regression tree:
+## tree(formula = Carseats$Sales ~ ., data = Carseats, subset = train)
+## Variables actually used in tree construction:
+## [1] "ShelveLoc"   "Price"       "Age"         "CompPrice"   "Advertising"
+## [6] "Population"  "Income"     
+## Number of terminal nodes:  18 
+## Residual mean deviance:  2.502 = 655.5 / 262 
+## Distribution of residuals:
+##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+## -3.74100 -0.98720 -0.02545  0.00000  1.02000  5.06900
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(tree.train)}
+\KeywordTok{text}\NormalTok{(tree.train)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{CW2_13154855_A_GUO_files/figure-latex/unnamed-chunk-2-1.pdf}
+
+Test MSE is \texttt{5.288256}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{yhat<-}\KeywordTok{predict}\NormalTok{(tree.train,}\DataTypeTok{newdata=}\NormalTok{testing)}
+\KeywordTok{mean}\NormalTok{((yhat}\OperatorTok{-}\NormalTok{testing}\OperatorTok{$}\NormalTok{Sales)}\OperatorTok{^}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 5.288256
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Use cross-validation in order to determine the optimal level of tree
+  complexity. Does pruning the tree improve the test error rate?
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cv.cars<-}\KeywordTok{cv.tree}\NormalTok{(tree.train)}
+\KeywordTok{plot}\NormalTok{(cv.cars}\OperatorTok{$}\NormalTok{size,cv.cars}\OperatorTok{$}\NormalTok{dev,}\DataTypeTok{type=}\StringTok{"b"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{CW2_13154855_A_GUO_files/figure-latex/unnamed-chunk-4-1.pdf}
+
+CV indicated that the minimum MSE is when tree size is 13 or 10, so
+we'll prune the tree to be of size 13.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{prune.cars<-}\KeywordTok{prune.tree}\NormalTok{(tree.train,}\DataTypeTok{best=}\DecValTok{13}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(prune.cars)}
+\KeywordTok{text}\NormalTok{(prune.cars,}\DataTypeTok{pretty=}\DecValTok{0}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{CW2_13154855_A_GUO_files/figure-latex/unnamed-chunk-5-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{yhat2<-}\KeywordTok{predict}\NormalTok{(prune.cars,}\DataTypeTok{newdata=}\NormalTok{testing)}
+\KeywordTok{mean}\NormalTok{((yhat2}\OperatorTok{-}\NormalTok{testing}\OperatorTok{$}\NormalTok{Sales)}\OperatorTok{^}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 5.162007
+\end{verbatim}
+
+Test MSE after pruning is \texttt{5.162007}. It is an improvement from
+without the pruning (which was \texttt{5.288256}).
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Use the bagging approach in order to analyze this data. What test MSE
+  do you obtain? Use the importance() function to determine which
+  variables are most important.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(randomForest)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## randomForest 4.6-14
+\end{verbatim}
+
+\begin{verbatim}
+## Type rfNews() to see new features/changes/bug fixes.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{1}\NormalTok{)}
+\NormalTok{bag.cars<-}\KeywordTok{randomForest}\NormalTok{(Sales}\OperatorTok{~}\NormalTok{.,}\DataTypeTok{data=}\NormalTok{Carseats,}\DataTypeTok{subset=}\NormalTok{train,}\DataTypeTok{mtry=}\DecValTok{10}\NormalTok{,}\DataTypeTok{importance=}\OtherTok{TRUE}\NormalTok{)}
+
+\NormalTok{yhat.bag<-}\KeywordTok{predict}\NormalTok{(bag.cars,}\DataTypeTok{newdata =}\NormalTok{ testing)}
+\KeywordTok{mean}\NormalTok{((yhat.bag}\OperatorTok{-}\NormalTok{testing}\OperatorTok{$}\NormalTok{Sales)}\OperatorTok{^}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2.363483
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{importance}\NormalTok{(bag.cars)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                %IncMSE IncNodePurity
+## CompPrice   27.8135565    209.349577
+## Income       7.7424034    108.501622
+## Advertising 21.3697626    181.735494
+## Population   3.8004106     96.555441
+## Price       70.0655453    691.754195
+## ShelveLoc   66.4327264    587.670575
+## Age         19.7964509    197.592670
+## Education    0.1123697     53.821669
+## Urban       -2.6501254      8.846458
+## US           3.8512787     11.371161
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{varImpPlot}\NormalTok{(bag.cars)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{CW2_13154855_A_GUO_files/figure-latex/unnamed-chunk-6-1.pdf}
+Test MSE for the bagging method is \texttt{2.363483}, which is a lot
+lower than without bagging.
+
+The most important (top 3) variables are: \texttt{Price},
+\texttt{ShelveLoc}, \texttt{CompPrice}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  Use random forests to analyze this data. What test error rate do you
+  obtain? Use the importance() function to determine which variables are
+  most important. Describe the effect of m, the number of variables
+  considered at each split, on the test MSE obtained.
+\end{enumerate}
+
+Find the best value for \texttt{mtry}: it seems that \texttt{mtry=7}
+would give the lowest test MSE
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{testMSE <-}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{10}\NormalTok{) }
+\ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{)\{}
+        \KeywordTok{set.seed}\NormalTok{(}\DecValTok{1}\NormalTok{)}
+\NormalTok{        rf.cars <-}\StringTok{ }\KeywordTok{randomForest}\NormalTok{(Sales }\OperatorTok{~}\StringTok{ }\NormalTok{., }\DataTypeTok{data=}\NormalTok{Carseats, }\DataTypeTok{subset=}\NormalTok{train, }\DataTypeTok{mtry=}\NormalTok{i,}\DataTypeTok{importance=}\OtherTok{TRUE}\NormalTok{) }
+\NormalTok{        yhat.rf <-}\StringTok{ }\KeywordTok{predict}\NormalTok{(rf.cars,}\DataTypeTok{newdata=}\NormalTok{testing)}
+\NormalTok{        testMSE[i] <-}\StringTok{ }\KeywordTok{mean}\NormalTok{((yhat.rf}\OperatorTok{-}\NormalTok{testing}\OperatorTok{$}\NormalTok{Sales)}\OperatorTok{^}\DecValTok{2}\NormalTok{)}
+\NormalTok{\}}
+\KeywordTok{plot}\NormalTok{(testMSE,}\DataTypeTok{type=}\StringTok{"b"}\NormalTok{,}\DataTypeTok{xlab=}\StringTok{"mtry"}\NormalTok{,}\DataTypeTok{ylab=}\StringTok{"Test MSE"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{CW2_13154855_A_GUO_files/figure-latex/unnamed-chunk-7-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{1}\NormalTok{)}
+\NormalTok{rf.cars<-}\KeywordTok{randomForest}\NormalTok{(Sales }\OperatorTok{~}\NormalTok{.,}\DataTypeTok{data=}\NormalTok{Carseats,}\DataTypeTok{subset=}\NormalTok{train,}\DataTypeTok{mtry=}\DecValTok{7}\NormalTok{,}\DataTypeTok{importance=}\OtherTok{TRUE}\NormalTok{)}
+\NormalTok{yhat.rf<-}\KeywordTok{predict}\NormalTok{(rf.cars,}\DataTypeTok{newdata=}\NormalTok{testing)}
+\KeywordTok{mean}\NormalTok{((yhat.rf}\OperatorTok{-}\NormalTok{testing}\OperatorTok{$}\NormalTok{Sales)}\OperatorTok{^}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2.304234
+\end{verbatim}
+
+When we use randomForest with \texttt{mtry=7}, the test MSE is
+\texttt{2.304234}, which is even lower than the test MSE with bagging
+(which is \texttt{2.363483}).
+
+Effect of m (\# of variables considered at each split): 1. Before m=7,
+the test MSE goes down as m increases. 2. After m=7, the test MSE goes
+up slightly as m increases.
+
+\subsection{3. Classification Trees (15\% \textbar{}
+20\%)}\label{classification-trees-15-20}
+
+This problem involves the OJ data set which is part of the ISLR package.
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\tightlist
+\item
+  Create a training set containing a random sample of 800 observations,
+  and a test set containing the remaining observations.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(ISLR)}
+\KeywordTok{data}\NormalTok{(OJ)}
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{1}\NormalTok{)}
+\NormalTok{train<-}\KeywordTok{sample}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\KeywordTok{nrow}\NormalTok{(OJ),}\DecValTok{800}\NormalTok{)}
+\NormalTok{training.set<-OJ[train,]}
+\NormalTok{testing.set<-OJ[}\OperatorTok{-}\NormalTok{train,]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Fit a tree to the training data, with Purchase as the response and the
+  other variables as predictors. Use the summary() function to produce
+  summary statistics about the tree, and describe the results obtained.
+  What is the training error rate? How many terminal nodes does the tree
+  have?
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tree.OJ<-}\KeywordTok{tree}\NormalTok{(Purchase}\OperatorTok{~}\NormalTok{.,}\DataTypeTok{data=}\NormalTok{OJ,}\DataTypeTok{subset=}\NormalTok{train)}
+\KeywordTok{summary}\NormalTok{(tree.OJ)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Classification tree:
+## tree(formula = Purchase ~ ., data = OJ, subset = train)
+## Variables actually used in tree construction:
+## [1] "LoyalCH"       "PriceDiff"     "SpecialCH"     "ListPriceDiff"
+## Number of terminal nodes:  8 
+## Residual mean deviance:  0.7305 = 578.6 / 792 
+## Misclassification error rate: 0.165 = 132 / 800
+\end{verbatim}
+
+Training error rate is \texttt{0.165}. The tree has \texttt{8} terminal
+nodes.
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Type in the name of the tree object in order to get a detailed text
+  output. Pick one of the terminal nodes, and interpret the information
+  displayed.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tree.OJ}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## node), split, n, deviance, yval, (yprob)
+##       * denotes terminal node
+## 
+##  1) root 800 1064.00 CH ( 0.61750 0.38250 )  
+##    2) LoyalCH < 0.508643 350  409.30 MM ( 0.27143 0.72857 )  
+##      4) LoyalCH < 0.264232 166  122.10 MM ( 0.12048 0.87952 )  
+##        8) LoyalCH < 0.0356415 57   10.07 MM ( 0.01754 0.98246 ) *
+##        9) LoyalCH > 0.0356415 109  100.90 MM ( 0.17431 0.82569 ) *
+##      5) LoyalCH > 0.264232 184  248.80 MM ( 0.40761 0.59239 )  
+##       10) PriceDiff < 0.195 83   91.66 MM ( 0.24096 0.75904 )  
+##         20) SpecialCH < 0.5 70   60.89 MM ( 0.15714 0.84286 ) *
+##         21) SpecialCH > 0.5 13   16.05 CH ( 0.69231 0.30769 ) *
+##       11) PriceDiff > 0.195 101  139.20 CH ( 0.54455 0.45545 ) *
+##    3) LoyalCH > 0.508643 450  318.10 CH ( 0.88667 0.11333 )  
+##      6) LoyalCH < 0.764572 172  188.90 CH ( 0.76163 0.23837 )  
+##       12) ListPriceDiff < 0.235 70   95.61 CH ( 0.57143 0.42857 ) *
+##       13) ListPriceDiff > 0.235 102   69.76 CH ( 0.89216 0.10784 ) *
+##      7) LoyalCH > 0.764572 278   86.14 CH ( 0.96403 0.03597 ) *
+\end{verbatim}
+
+I choose the first node from the left (case \texttt{8)}). This means
+that the choice would be Minute Maid \texttt{MM} if \texttt{LoyalCH} is
+\textless{} \texttt{0.0356415}.
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Create a plot of the tree, and interpret the results.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(tree.OJ)}
+\KeywordTok{text}\NormalTok{(tree.OJ,}\DataTypeTok{pretty=}\DecValTok{0}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{CW2_13154855_A_GUO_files/figure-latex/unnamed-chunk-12-1.pdf}
+
+I pick the third terminal node from the left (\texttt{20)} in the
+model): it tells us that a customer is likely to buy MM under the
+following conditions: 1) When a customer's brand loyalty for Citrus Hill
+is lower than 0.264232 (\texttt{LoyalCH\ \textless{}\ 0.264232}) 2) When
+the price difference between the two brands is less than 0.195 (MM being
+cheaper than CH) 3) When special on Citrus Hill is less than 0.5
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  Predict the response on the test data, and produce a confusion matrix
+  comparing the test labels to the predicted test labels. What is the
+  test error rate?
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pred.OJ.unpruned<-}\KeywordTok{predict}\NormalTok{(tree.OJ,testing.set,}\DataTypeTok{type=}\StringTok{"class"}\NormalTok{)}
+\KeywordTok{table}\NormalTok{(pred.OJ.unpruned,testing.set}\OperatorTok{$}\NormalTok{Purchase)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                 
+## pred.OJ.unpruned  CH  MM
+##               CH 147  49
+##               MM  12  62
+\end{verbatim}
+
+Testing error rate = \texttt{(12+49)/270=22.59\%}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{5}
+\tightlist
+\item
+  Apply the cv.tree() function to the training set in order to determine
+  the optimal tree size.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cv.OJ<-}\KeywordTok{cv.tree}\NormalTok{(tree.OJ,}\DataTypeTok{FUN=}\NormalTok{prune.misclass)}
+\NormalTok{cv.OJ}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $size
+## [1] 8 5 2 1
+## 
+## $dev
+## [1] 156 156 156 306
+## 
+## $k
+## [1]       -Inf   0.000000   4.666667 160.000000
+## 
+## $method
+## [1] "misclass"
+## 
+## attr(,"class")
+## [1] "prune"         "tree.sequence"
+\end{verbatim}
+
+It seems that the error rate is the same \& lowest whether we use 8,5 or
+2.
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{6}
+\tightlist
+\item
+  Produce a plot with tree size on the x-axis and cross-validated
+  classification error rate on the y-axis.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(cv.OJ}\OperatorTok{$}\NormalTok{size,cv.OJ}\OperatorTok{$}\NormalTok{dev,}\DataTypeTok{type=}\StringTok{'b'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{CW2_13154855_A_GUO_files/figure-latex/unnamed-chunk-15-1.pdf}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{7}
+\tightlist
+\item
+  Which tree size corresponds to the lowest cross-validated
+  classification error rate?
+\end{enumerate}
+
+When tree size is 8,5 or 2, they produce the same lowest CV
+classification error rate.
+
+\begin{enumerate}
+\def\labelenumi{(\roman{enumi})}
+\tightlist
+\item
+  Produce a pruned tree corresponding to the optimal tree size obtained
+  using cross-validation. If cross-validation does not lead to selection
+  of a pruned tree, then create a pruned tree with five terminal nodes.
+\end{enumerate}
+
+We'll use tree size = 5 for the pruning.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{prune.OJ<-}\KeywordTok{prune.misclass}\NormalTok{(tree.OJ,}\DataTypeTok{best=}\DecValTok{5}\NormalTok{)}
+\NormalTok{tree.pred.pruned<-}\KeywordTok{predict}\NormalTok{(prune.OJ,testing.set,}\DataTypeTok{type=}\StringTok{"class"}\NormalTok{)}
+\KeywordTok{table}\NormalTok{(tree.pred.pruned,testing.set}\OperatorTok{$}\NormalTok{Purchase)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                 
+## tree.pred.pruned  CH  MM
+##               CH 147  49
+##               MM  12  62
+\end{verbatim}
+
+Test error rate for the pruned tree is \texttt{(12+49)/270\ =\ 22.59\%}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(prune.OJ)}
+\KeywordTok{text}\NormalTok{(prune.OJ,}\DataTypeTok{pretty=}\DecValTok{0}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{CW2_13154855_A_GUO_files/figure-latex/unnamed-chunk-17-1.pdf}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{9}
+\tightlist
+\item
+  Compare the training error rates between the pruned and unpruned
+  trees. Which is higher?
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(tree.OJ)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Classification tree:
+## tree(formula = Purchase ~ ., data = OJ, subset = train)
+## Variables actually used in tree construction:
+## [1] "LoyalCH"       "PriceDiff"     "SpecialCH"     "ListPriceDiff"
+## Number of terminal nodes:  8 
+## Residual mean deviance:  0.7305 = 578.6 / 792 
+## Misclassification error rate: 0.165 = 132 / 800
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(prune.OJ)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Classification tree:
+## snip.tree(tree = tree.OJ, nodes = 3:4)
+## Variables actually used in tree construction:
+## [1] "LoyalCH"   "PriceDiff" "SpecialCH"
+## Number of terminal nodes:  5 
+## Residual mean deviance:  0.8256 = 656.4 / 795 
+## Misclassification error rate: 0.165 = 132 / 800
+\end{verbatim}
+
+The training error rate for unpruned and pruned tree is the same (when
+we select 5 as the tree size): it is \texttt{0.165}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{10}
+\tightlist
+\item
+  Compare the test error rates between the pruned and unpruned trees.
+  Which is higher?
+\end{enumerate}
+
+Test error rate is the same for the pruned vs.~unpruned trees,
+\texttt{(12+49)/270\ =\ 22.59\%}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# unpruned}
+\KeywordTok{table}\NormalTok{(pred.OJ.unpruned,testing.set}\OperatorTok{$}\NormalTok{Purchase)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                 
+## pred.OJ.unpruned  CH  MM
+##               CH 147  49
+##               MM  12  62
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# pruned}
+\KeywordTok{table}\NormalTok{(tree.pred.pruned,testing.set}\OperatorTok{$}\NormalTok{Purchase)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                 
+## tree.pred.pruned  CH  MM
+##               CH 147  49
+##               MM  12  62
+\end{verbatim}
+
+\subsection{4. SVM (15\% \textbar{} 20\%)}\label{svm-15-20}
+
+In this problem, you will use support vector approaches in order to
+predict whether a given car gets high or low gas mileage based on the
+Auto data set. (a) Create a binary variable that takes on a 1 for cars
+with gas mileage above the median, and a 0 for cars with gas mileage
+below the median.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{average<-}\KeywordTok{median}\NormalTok{(Auto}\OperatorTok{$}\NormalTok{mpg)}
+\NormalTok{High<-}\KeywordTok{ifelse}\NormalTok{(Auto}\OperatorTok{$}\NormalTok{mpg}\OperatorTok{>=}\NormalTok{average,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{)}
+\NormalTok{Auto <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(Auto,}\KeywordTok{as.factor}\NormalTok{(High))}
+\KeywordTok{colnames}\NormalTok{(Auto)[}\DecValTok{10}\NormalTok{]<-}\StringTok{"High"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Fit a support vector classifier to the data with various values of
+  cost, in order to predict whether a car gets high or low gas mileage.
+  Report the cross-validation errors associated with different values of
+  this parameter. Comment on your results.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(e1071)}
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{1}\NormalTok{)}
+\NormalTok{train<-}\KeywordTok{sample}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\KeywordTok{nrow}\NormalTok{(Auto),}\DecValTok{196}\NormalTok{)}
+\NormalTok{training.set2<-Auto[train,]}
+\NormalTok{testing.set2<-Auto[}\OperatorTok{-}\NormalTok{train,]}
+
+\NormalTok{tune.out<-}\KeywordTok{tune}\NormalTok{(svm,High}\OperatorTok{~}\NormalTok{.,}\DataTypeTok{data=}\NormalTok{training.set2,}\DataTypeTok{kernel=}\StringTok{"linear"}\NormalTok{,}\DataTypeTok{ranges=}\KeywordTok{list}\NormalTok{(}\DataTypeTok{cost=}\KeywordTok{c}\NormalTok{(}\FloatTok{0.001}\NormalTok{,}\FloatTok{0.01}\NormalTok{,}\FloatTok{0.1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{10}\NormalTok{,}\DecValTok{100}\NormalTok{)))}
+\KeywordTok{summary}\NormalTok{(tune.out)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Parameter tuning of 'svm':
+## 
+## - sampling method: 10-fold cross validation 
+## 
+## - best parameters:
+##  cost
+##     1
+## 
+## - best performance: 0.02026316 
+## 
+## - Detailed performance results:
+##    cost      error dispersion
+## 1 1e-03 0.11236842 0.05264693
+## 2 1e-02 0.09184211 0.04678737
+## 3 1e-01 0.07657895 0.06021979
+## 4 1e+00 0.02026316 0.02617065
+## 5 1e+01 0.03105263 0.03648111
+## 6 1e+02 0.03105263 0.03648111
+\end{verbatim}
+
+The training error rate is the smallest when \texttt{cost\ =\ 1}. The
+training error when \texttt{cost=1} is \texttt{0.02026316}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{best<-tune.out}\OperatorTok{$}\NormalTok{best.model}
+\KeywordTok{summary}\NormalTok{(best)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## best.tune(method = svm, train.x = High ~ ., data = training.set2, 
+##     ranges = list(cost = c(0.001, 0.01, 0.1, 1, 10, 100)), kernel = "linear")
+## 
+## 
+## Parameters:
+##    SVM-Type:  C-classification 
+##  SVM-Kernel:  linear 
+##        cost:  1 
+##       gamma:  0.003205128 
+## 
+## Number of Support Vectors:  39
+## 
+##  ( 20 19 )
+## 
+## 
+## Number of Classes:  2 
+## 
+## Levels: 
+##  0 1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ypred<-}\KeywordTok{predict}\NormalTok{(best,testing.set2)}
+\KeywordTok{table}\NormalTok{(}\DataTypeTok{predict=}\NormalTok{ypred,}\DataTypeTok{truth=}\NormalTok{testing.set2}\OperatorTok{$}\NormalTok{High)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##        truth
+## predict   0   1
+##       0  92   2
+##       1   1 101
+\end{verbatim}
+
+The testing error rate for the best model (when cost = 1) is
+\texttt{(1+2)/196\ =\ 0.0153}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Now repeat (b), this time using SVMs with radial and polynomial basis
+  kernels, with different values of gamma and degree and cost. Comment
+  on your results.
+\end{enumerate}
+
+\subsubsection{Radial kernel}\label{radial-kernel}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{1}\NormalTok{)}
+\NormalTok{tune.out.radial <-}\StringTok{ }\KeywordTok{tune}\NormalTok{(svm, High }\OperatorTok{~}\StringTok{ }\NormalTok{., }\DataTypeTok{data=}\NormalTok{training.set2, }\DataTypeTok{kernel=}\StringTok{"radial"}\NormalTok{,}\DataTypeTok{ranges =} \KeywordTok{list}\NormalTok{(}\DataTypeTok{cost=}\KeywordTok{c}\NormalTok{(}\FloatTok{0.1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{10}\NormalTok{,}\DecValTok{100}\NormalTok{,}\DecValTok{1000}\NormalTok{),}\DataTypeTok{gamma=}\KeywordTok{c}\NormalTok{(}\FloatTok{0.5}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{)))}
+\KeywordTok{summary}\NormalTok{(tune.out.radial)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Parameter tuning of 'svm':
+## 
+## - sampling method: 10-fold cross validation 
+## 
+## - best parameters:
+##  cost gamma
+##     1   0.5
+## 
+## - best performance: 0.05105263 
+## 
+## - Detailed performance results:
+##     cost gamma      error dispersion
+## 1  1e-01   0.5 0.38736842 0.22583520
+## 2  1e+00   0.5 0.05105263 0.05440294
+## 3  1e+01   0.5 0.05631579 0.07100605
+## 4  1e+02   0.5 0.05631579 0.07100605
+## 5  1e+03   0.5 0.05631579 0.07100605
+## 6  1e-01   1.0 0.48263158 0.14057657
+## 7  1e+00   1.0 0.06657895 0.06546763
+## 8  1e+01   1.0 0.06131579 0.05366027
+## 9  1e+02   1.0 0.06131579 0.05366027
+## 10 1e+03   1.0 0.06131579 0.05366027
+## 11 1e-01   2.0 0.52763158 0.14747412
+## 12 1e+00   2.0 0.37210526 0.23703761
+## 13 1e+01   2.0 0.34657895 0.22832998
+## 14 1e+02   2.0 0.34657895 0.22832998
+## 15 1e+03   2.0 0.34657895 0.22832998
+## 16 1e-01   3.0 0.52763158 0.14747412
+## 17 1e+00   3.0 0.50736842 0.14670800
+## 18 1e+01   3.0 0.50736842 0.14670800
+## 19 1e+02   3.0 0.50736842 0.14670800
+## 20 1e+03   3.0 0.50736842 0.14670800
+## 21 1e-01   4.0 0.52763158 0.14747412
+## 22 1e+00   4.0 0.51236842 0.15464019
+## 23 1e+01   4.0 0.51236842 0.15464019
+## 24 1e+02   4.0 0.51236842 0.15464019
+## 25 1e+03   4.0 0.51236842 0.15464019
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tune.out.radial}\OperatorTok{$}\NormalTok{best.model}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## best.tune(method = svm, train.x = High ~ ., data = training.set2, 
+##     ranges = list(cost = c(0.1, 1, 10, 100, 1000), gamma = c(0.5, 
+##         1, 2, 3, 4)), kernel = "radial")
+## 
+## 
+## Parameters:
+##    SVM-Type:  C-classification 
+##  SVM-Kernel:  radial 
+##        cost:  1 
+##       gamma:  0.5 
+## 
+## Number of Support Vectors:  165
+\end{verbatim}
+
+For radial kernel, the training error rate is the lowest when
+\texttt{cost\ =\ 1} and \texttt{gamma\ =\ 0.5}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{svmfit.radial <-}\StringTok{ }\KeywordTok{svm}\NormalTok{(High}\OperatorTok{~}\NormalTok{.,}\DataTypeTok{data=}\NormalTok{training.set2,}\DataTypeTok{kernel=}\StringTok{"radial"}\NormalTok{,}\DataTypeTok{cost=}\DecValTok{1}\NormalTok{,}\DataTypeTok{gamma=}\FloatTok{0.5}\NormalTok{)}
+\NormalTok{ypred.radial <-}\StringTok{ }\KeywordTok{predict}\NormalTok{(svmfit.radial,testing.set2)}
+\KeywordTok{table}\NormalTok{(ypred.radial,testing.set2}\OperatorTok{$}\NormalTok{High)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##             
+## ypred.radial   0   1
+##            0  87   1
+##            1   6 102
+\end{verbatim}
+
+Testing error rate is the lowest for the best fitting SVM radial model
+when \texttt{cost\ =\ 1} and \texttt{gamma\ =\ 0.5}:
+\texttt{(1+6)/196\ =\ 0.0357}
+
+\subsubsection{Polynomial kernel:}\label{polynomial-kernel}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{1}\NormalTok{)}
+\NormalTok{tune.out <-}\StringTok{ }\KeywordTok{tune}\NormalTok{(svm, High }\OperatorTok{~}\StringTok{ }\NormalTok{., }\DataTypeTok{data=}\NormalTok{training.set2, }\DataTypeTok{kernel=}\StringTok{"polynomial"}\NormalTok{,}\DataTypeTok{ranges =} \KeywordTok{list}\NormalTok{(}\DataTypeTok{cost=}\KeywordTok{c}\NormalTok{(}\FloatTok{0.1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{10}\NormalTok{,}\DecValTok{100}\NormalTok{,}\DecValTok{1000}\NormalTok{),}\DataTypeTok{degree=}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{)))}
+\KeywordTok{summary}\NormalTok{(tune.out)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Parameter tuning of 'svm':
+## 
+## - sampling method: 10-fold cross validation 
+## 
+## - best parameters:
+##  cost degree
+##  1000      1
+## 
+## - best performance: 0.02052632 
+## 
+## - Detailed performance results:
+##     cost degree      error dispersion
+## 1  1e-01      1 0.47263158 0.15754445
+## 2  1e+00      1 0.09684211 0.07735032
+## 3  1e+01      1 0.08184211 0.06967420
+## 4  1e+02      1 0.03078947 0.04329549
+## 5  1e+03      1 0.02052632 0.02651387
+## 6  1e-01      2 0.51763158 0.13344323
+## 7  1e+00      2 0.51763158 0.13344323
+## 8  1e+01      2 0.51763158 0.13344323
+## 9  1e+02      2 0.49184211 0.11943652
+## 10 1e+03      2 0.33684211 0.11247242
+## 11 1e-01      3 0.51263158 0.12878794
+## 12 1e+00      3 0.51263158 0.12878794
+## 13 1e+01      3 0.51263158 0.12878794
+## 14 1e+02      3 0.50263158 0.14173658
+## 15 1e+03      3 0.25421053 0.08005269
+## 16 1e-01      4 0.52763158 0.14747412
+## 17 1e+00      4 0.52763158 0.14747412
+## 18 1e+01      4 0.52763158 0.14747412
+## 19 1e+02      4 0.52763158 0.14747412
+## 20 1e+03      4 0.52763158 0.14747412
+## 21 1e-01      5 0.51763158 0.13344323
+## 22 1e+00      5 0.51763158 0.13344323
+## 23 1e+01      5 0.51763158 0.13344323
+## 24 1e+02      5 0.51763158 0.13344323
+## 25 1e+03      5 0.51763158 0.13344323
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tune.out}\OperatorTok{$}\NormalTok{best.model}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## best.tune(method = svm, train.x = High ~ ., data = training.set2, 
+##     ranges = list(cost = c(0.1, 1, 10, 100, 1000), degree = c(1, 
+##         2, 3, 4, 5)), kernel = "polynomial")
+## 
+## 
+## Parameters:
+##    SVM-Type:  C-classification 
+##  SVM-Kernel:  polynomial 
+##        cost:  1000 
+##      degree:  1 
+##       gamma:  0.003205128 
+##      coef.0:  0 
+## 
+## Number of Support Vectors:  27
+\end{verbatim}
+
+The best performing polynomial SVM model based on training data is when
+\texttt{cost\ =\ 1000} and \texttt{degree\ =\ 1}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# polynomial}
+
+\NormalTok{svmfit.polynomial <-}\StringTok{ }\KeywordTok{svm}\NormalTok{(High}\OperatorTok{~}\NormalTok{.,}\DataTypeTok{data=}\NormalTok{training.set2,}\DataTypeTok{kernel=}\StringTok{"polynomial"}\NormalTok{,}\DataTypeTok{cost=}\DecValTok{1000}\NormalTok{,}\DataTypeTok{degree=}\DecValTok{1}\NormalTok{)}
+\NormalTok{ypred.polynomial <-}\StringTok{ }\KeywordTok{predict}\NormalTok{(svmfit.polynomial,testing.set2)}
+\KeywordTok{table}\NormalTok{(ypred.polynomial,testing.set2}\OperatorTok{$}\NormalTok{High)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                 
+## ypred.polynomial   0   1
+##                0  92   2
+##                1   1 101
+\end{verbatim}
+
+The testing error rate for the best performing SVM polynomial model is
+when \texttt{cost\ =\ 1000} and \texttt{degree\ =\ 1}. Testing error
+rate = \texttt{(1+2)/196\ =\ 0.01531}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Make some plots to back up your assertions in (b) and (c).
+\end{enumerate}
+
+\subsubsection{Linear kernel}\label{linear-kernel}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# linear}
+\CommentTok{# not plotting against the 9th, 10th and 1st column (respectively "name","High" and "mpg")}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \KeywordTok{names}\NormalTok{(Auto)[}\KeywordTok{c}\NormalTok{(}\OperatorTok{-}\DecValTok{9}\NormalTok{,}\OperatorTok{-}\DecValTok{10}\NormalTok{,}\OperatorTok{-}\DecValTok{1}\NormalTok{)])\{}
+        \KeywordTok{plot}\NormalTok{(best,Auto,}\KeywordTok{as.formula}\NormalTok{(}\KeywordTok{paste}\NormalTok{(}\StringTok{"mpg~"}\NormalTok{,i,}\DataTypeTok{sep=}\StringTok{""}\NormalTok{)),}\DataTypeTok{main=}\StringTok{"linear"}\NormalTok{)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{CW2_13154855_A_GUO_files/figure-latex/unnamed-chunk-27-1.pdf}
+\includegraphics{CW2_13154855_A_GUO_files/figure-latex/unnamed-chunk-27-2.pdf}
+\includegraphics{CW2_13154855_A_GUO_files/figure-latex/unnamed-chunk-27-3.pdf}
+\includegraphics{CW2_13154855_A_GUO_files/figure-latex/unnamed-chunk-27-4.pdf}
+\includegraphics{CW2_13154855_A_GUO_files/figure-latex/unnamed-chunk-27-5.pdf}
+\includegraphics{CW2_13154855_A_GUO_files/figure-latex/unnamed-chunk-27-6.pdf}
+\includegraphics{CW2_13154855_A_GUO_files/figure-latex/unnamed-chunk-27-7.pdf}
+
+\subsubsection{Radial kernel}\label{radial-kernel-1}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# radial}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \KeywordTok{names}\NormalTok{(Auto)[}\KeywordTok{c}\NormalTok{(}\OperatorTok{-}\DecValTok{9}\NormalTok{,}\OperatorTok{-}\DecValTok{10}\NormalTok{,}\OperatorTok{-}\DecValTok{1}\NormalTok{)])\{}
+        \KeywordTok{plot}\NormalTok{(svmfit.radial,Auto,}\KeywordTok{as.formula}\NormalTok{(}\KeywordTok{paste}\NormalTok{(}\StringTok{"mpg~"}\NormalTok{,i,}\DataTypeTok{sep=}\StringTok{""}\NormalTok{)))}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{CW2_13154855_A_GUO_files/figure-latex/unnamed-chunk-28-1.pdf}
+\includegraphics{CW2_13154855_A_GUO_files/figure-latex/unnamed-chunk-28-2.pdf}
+\includegraphics{CW2_13154855_A_GUO_files/figure-latex/unnamed-chunk-28-3.pdf}
+\includegraphics{CW2_13154855_A_GUO_files/figure-latex/unnamed-chunk-28-4.pdf}
+\includegraphics{CW2_13154855_A_GUO_files/figure-latex/unnamed-chunk-28-5.pdf}
+\includegraphics{CW2_13154855_A_GUO_files/figure-latex/unnamed-chunk-28-6.pdf}
+\includegraphics{CW2_13154855_A_GUO_files/figure-latex/unnamed-chunk-28-7.pdf}
+
+\subsubsection{Polynomial kernel}\label{polynomial-kernel-1}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# polynomial}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \KeywordTok{names}\NormalTok{(Auto)[}\KeywordTok{c}\NormalTok{(}\OperatorTok{-}\DecValTok{9}\NormalTok{,}\OperatorTok{-}\DecValTok{10}\NormalTok{,}\OperatorTok{-}\DecValTok{1}\NormalTok{)])\{}
+        \KeywordTok{plot}\NormalTok{(svmfit.polynomial,Auto,}\KeywordTok{as.formula}\NormalTok{(}\KeywordTok{paste}\NormalTok{(}\StringTok{"mpg~"}\NormalTok{,i,}\DataTypeTok{sep=}\StringTok{""}\NormalTok{)))}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{CW2_13154855_A_GUO_files/figure-latex/unnamed-chunk-29-1.pdf}
+\includegraphics{CW2_13154855_A_GUO_files/figure-latex/unnamed-chunk-29-2.pdf}
+\includegraphics{CW2_13154855_A_GUO_files/figure-latex/unnamed-chunk-29-3.pdf}
+\includegraphics{CW2_13154855_A_GUO_files/figure-latex/unnamed-chunk-29-4.pdf}
+\includegraphics{CW2_13154855_A_GUO_files/figure-latex/unnamed-chunk-29-5.pdf}
+\includegraphics{CW2_13154855_A_GUO_files/figure-latex/unnamed-chunk-29-6.pdf}
+\includegraphics{CW2_13154855_A_GUO_files/figure-latex/unnamed-chunk-29-7.pdf}
+
+\subsection{5. SVM (15\% \textbar{} 0\%)}\label{svm-15-0}
+
+Here we explore the maximal margin classifier on a toy data set.
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\tightlist
+\item
+  We are given n = 7 observations in p = 2 dimensions. For each
+  observation, there is an associated class label. Sketch the
+  observations.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x1<-}\KeywordTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{4}\NormalTok{)}
+\NormalTok{x2<-}\KeywordTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{1}\NormalTok{)}
+\NormalTok{color<-}\KeywordTok{c}\NormalTok{(}\StringTok{"red"}\NormalTok{,}\StringTok{"red"}\NormalTok{,}\StringTok{"red"}\NormalTok{,}\StringTok{"red"}\NormalTok{,}\StringTok{"blue"}\NormalTok{,}\StringTok{"blue"}\NormalTok{,}\StringTok{"blue"}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(x1,x2,}\DataTypeTok{col=}\NormalTok{color)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{CW2_13154855_A_GUO_files/figure-latex/unnamed-chunk-30-1.pdf}
+(b) Sketch the optimal separating hyperplane, and provide the equation
+for this hyperplane of the following form.
+\texttt{β0\ +\ β1X1\ +\ β2X2\ =\ 0}
+
+The optimal separating hyperplane should go through position of
+\texttt{(2,1.5)} and \texttt{(4,3.5)}. Therefore, we know that the
+intercept should be \texttt{-0.5}, and the slope should be \texttt{1}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(x1,x2,}\DataTypeTok{col=}\NormalTok{color)}\OperatorTok{+}\KeywordTok{abline}\NormalTok{(}\OperatorTok{-}\FloatTok{0.5}\NormalTok{,}\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{CW2_13154855_A_GUO_files/figure-latex/unnamed-chunk-31-1.pdf}
+
+\begin{verbatim}
+## integer(0)
+\end{verbatim}
+
+The formula is \texttt{y=x-0.5}, which can be translated into
+\texttt{x1-x2-0.5=0}.
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Describe the classification rule for the maximal margin classifier. It
+  should be something along the lines of ``Classify to Red if β0 + β1X1
+  + β2X2 \textgreater{} 0, and classify to Blue otherwise.'' Provide the
+  values for β0, β1, and β2.
+\end{enumerate}
+
+\begin{itemize}
+\item
+  \texttt{β0\ =-0.5}
+\item
+  \texttt{β1\ =\ 1}
+\item
+  \texttt{β2\ =-1}
+\item
+  Classify to \textbf{red} if β0 + β1X1 + β2X2 \textless{} 0. Otherwise,
+  classify to \textbf{blue}
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  On your sketch, indicate the margin for the maximal margin hyperplane.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(x1,x2,}\DataTypeTok{col=}\NormalTok{color)}\OperatorTok{+}\KeywordTok{abline}\NormalTok{(}\OperatorTok{-}\FloatTok{0.5}\NormalTok{,}\DecValTok{1}\NormalTok{)}\OperatorTok{+}
+\StringTok{        }\CommentTok{# margins for the maximal margin hyperplane}
+\StringTok{        }\KeywordTok{abline}\NormalTok{(}\OperatorTok{-}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DataTypeTok{lty =} \DecValTok{3}\NormalTok{)}\OperatorTok{+}\KeywordTok{abline}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DataTypeTok{lty =} \DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{CW2_13154855_A_GUO_files/figure-latex/unnamed-chunk-32-1.pdf}
+
+\begin{verbatim}
+## integer(0)
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  Indicate the support vectors for the maximal margin classifier.
+\end{enumerate}
+
+There are 4 support vectors: 1. blue point at (2,1) 2. blue point at
+(4,3) 3. red point at (2,2) 4. red point at (4,4)
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{5}
+\tightlist
+\item
+  Argue that a slight movement of the seventh observation would not
+  affect the maximal margin hyperplane.
+\end{enumerate}
+
+The 7th observation is (4,1), which is neither a support vector nor a
+point on the margin for max margin hyperplane. Therefore, moving it
+would not affect the max margin hyperplane.
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{6}
+\tightlist
+\item
+  Sketch a hyperplane that is not the optimal separating hyperplane, and
+  provide the equation for this hyperplane.
+\end{enumerate}
+
+For example:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(x1,x2,}\DataTypeTok{col=}\NormalTok{color)}\OperatorTok{+}\KeywordTok{abline}\NormalTok{(}\OperatorTok{-}\FloatTok{0.5}\NormalTok{,}\FloatTok{1.5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{CW2_13154855_A_GUO_files/figure-latex/unnamed-chunk-33-1.pdf}
+
+\begin{verbatim}
+## integer(0)
+\end{verbatim}
+
+The formula is \texttt{1.5x1-x2-0.5=0}.
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{β0\ =-0.5}
+\item
+  \texttt{β1\ =\ 1.5}
+\item
+  \texttt{β2\ =-1}
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{7}
+\tightlist
+\item
+  Draw an additional observation on the plot so that the two classes are
+  no longer separable by a hyperplane.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(x1,x2,}\DataTypeTok{col=}\NormalTok{color)}\OperatorTok{+}
+\StringTok{        }\CommentTok{# draw an additional point which confuses the hyperplane}
+\StringTok{        }\KeywordTok{points}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{), }\KeywordTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{), }\DataTypeTok{col =} \KeywordTok{c}\NormalTok{(}\StringTok{"blue"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{CW2_13154855_A_GUO_files/figure-latex/unnamed-chunk-34-1.pdf}
+
+\begin{verbatim}
+## integer(0)
+\end{verbatim}
+
+\subsection{6. Hierarchical clustering (10\% \textbar{}
+20\%)}\label{hierarchical-clustering-10-20}
+
+Consider the USArrests data. We will now perform hierarchical clustering
+on the states.
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\tightlist
+\item
+  Using hierarchical clustering with complete linkage and Euclidean
+  distance, cluster the states.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{hc.complete<-}\KeywordTok{hclust}\NormalTok{(}\KeywordTok{dist}\NormalTok{(USArrests),}\DataTypeTok{method=}\StringTok{"complete"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Cut the dendrogram at a height that results in three distinct
+  clusters. Which states belong to which clusters?
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{cutree}\NormalTok{(hc.complete,}\DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##        Alabama         Alaska        Arizona       Arkansas     California 
+##              1              1              1              2              1 
+##       Colorado    Connecticut       Delaware        Florida        Georgia 
+##              2              3              1              1              2 
+##         Hawaii          Idaho       Illinois        Indiana           Iowa 
+##              3              3              1              3              3 
+##         Kansas       Kentucky      Louisiana          Maine       Maryland 
+##              3              3              1              3              1 
+##  Massachusetts       Michigan      Minnesota    Mississippi       Missouri 
+##              2              1              3              1              2 
+##        Montana       Nebraska         Nevada  New Hampshire     New Jersey 
+##              3              3              1              3              2 
+##     New Mexico       New York North Carolina   North Dakota           Ohio 
+##              1              1              1              3              3 
+##       Oklahoma         Oregon   Pennsylvania   Rhode Island South Carolina 
+##              2              2              3              2              1 
+##   South Dakota      Tennessee          Texas           Utah        Vermont 
+##              3              2              2              3              3 
+##       Virginia     Washington  West Virginia      Wisconsin        Wyoming 
+##              2              2              3              3              2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{d<-}\KeywordTok{as.data.frame}\NormalTok{(}\KeywordTok{cutree}\NormalTok{(hc.complete,}\DecValTok{3}\NormalTok{))}
+\NormalTok{d<-}\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{names=}\KeywordTok{row.names}\NormalTok{(d),d)}
+\KeywordTok{colnames}\NormalTok{(d)<-}\KeywordTok{c}\NormalTok{(}\StringTok{"State"}\NormalTok{,}\StringTok{"Group"}\NormalTok{)}
+
+\CommentTok{# States in the first cluster}
+\NormalTok{State_cluster1<-d[}\KeywordTok{which}\NormalTok{(d}\OperatorTok{$}\NormalTok{Group}\OperatorTok{==}\DecValTok{1}\NormalTok{),]}\OperatorTok{$}\NormalTok{State}
+\NormalTok{State_cluster1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] Alabama        Alaska         Arizona        California    
+##  [5] Delaware       Florida        Illinois       Louisiana     
+##  [9] Maryland       Michigan       Mississippi    Nevada        
+## [13] New Mexico     New York       North Carolina South Carolina
+## 50 Levels: Alabama Alaska Arizona Arkansas California ... Wyoming
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# States in second cluster}
+\NormalTok{State_cluster2<-d[}\KeywordTok{which}\NormalTok{(d}\OperatorTok{$}\NormalTok{Group}\OperatorTok{==}\DecValTok{2}\NormalTok{),]}\OperatorTok{$}\NormalTok{State}
+\CommentTok{# States in third cluster}
+\NormalTok{State_cluster3<-d[}\KeywordTok{which}\NormalTok{(d}\OperatorTok{$}\NormalTok{Group}\OperatorTok{==}\DecValTok{3}\NormalTok{),]}\OperatorTok{$}\NormalTok{State}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Hierarchically cluster the states using complete linkage and Euclidean
+  distance, after scaling the variables to have standard deviation one.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{xsc<-}\KeywordTok{scale}\NormalTok{(USArrests)}
+\NormalTok{hc.complete.scaled<-}\KeywordTok{hclust}\NormalTok{(}\KeywordTok{dist}\NormalTok{(xsc),}\DataTypeTok{method=}\StringTok{"complete"}\NormalTok{)}
+
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow=}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\KeywordTok{plot}\NormalTok{(hc.complete.scaled,}\DataTypeTok{main=}\StringTok{"HC with Scaled Features"}\NormalTok{,}\DataTypeTok{xlab=}\StringTok{""}\NormalTok{,}\DataTypeTok{ylab=}\StringTok{""}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(hc.complete,}\DataTypeTok{main=}\StringTok{"HC without Scaled Features"}\NormalTok{,}\DataTypeTok{xlab=}\StringTok{""}\NormalTok{,}\DataTypeTok{ylab=}\StringTok{""}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{CW2_13154855_A_GUO_files/figure-latex/unnamed-chunk-37-1.pdf}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  What effect does scaling the variables have on the hierarchical
+  clustering obtained? In your opinion, should the variables be scaled
+  before the inter-observation dissimilarities are computed? Provide a
+  justification for your answer.
+\end{enumerate}
+
+Scaling the variables gives equal weights to the different crimes in the
+dataset. For example, in the dataset there are a lot more occurances of
+\texttt{Assault} than \texttt{Murder}, which means that not scaling the
+variables would give a lot more weight/importance to assault than any
+other crime. Scaling solves this problem.
+
+\subsection{7. PCA and K-Means Clustering (20\% \textbar{}
+0\%)}\label{pca-and-k-means-clustering-20-0}
+
+In this problem, you will generate simulated data, and then perform PCA
+and K-means clustering on the data. (a) Generate a simulated data set
+with 20 observations in each of three classes (i.e.~60 observations
+total), and 50 variables.
+
+Hint: There are a number of functions in R that you can use to generate
+data. One example is the rnorm() function; runif() is another option. Be
+sure to add a mean shift to the observations in each class so that there
+are three distinct classes.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{1}\NormalTok{)}
+\NormalTok{df <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\KeywordTok{rnorm}\NormalTok{(}\DecValTok{60}\OperatorTok{*}\DecValTok{50}\NormalTok{, }\DataTypeTok{mean =} \DecValTok{0}\NormalTok{, }\DataTypeTok{sd =} \DecValTok{2}\NormalTok{),}\DataTypeTok{ncol=}\DecValTok{50}\NormalTok{)}
+\CommentTok{# Split the rows into three groups, keeping row 41-60 unchanged}
+\NormalTok{df[}\DecValTok{1}\OperatorTok{:}\DecValTok{20}\NormalTok{, ] =}\StringTok{ }\NormalTok{df[}\DecValTok{1}\OperatorTok{:}\DecValTok{20}\NormalTok{, ]}\OperatorTok{-}\DecValTok{10}
+\NormalTok{df[}\DecValTok{21}\OperatorTok{:}\DecValTok{40}\NormalTok{, ] =}\StringTok{ }\NormalTok{df[}\DecValTok{21}\OperatorTok{:}\DecValTok{40}\NormalTok{, ] }\OperatorTok{+}\DecValTok{10}
+
+\CommentTok{# Split same row into three different groups}
+
+\NormalTok{df[}\DecValTok{1}\OperatorTok{:}\DecValTok{20}\NormalTok{, }\DecValTok{11}\OperatorTok{:}\DecValTok{20}\NormalTok{] =}\StringTok{ }\DecValTok{1}
+\NormalTok{df[}\DecValTok{21}\OperatorTok{:}\DecValTok{40}\NormalTok{, }\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{] =}\StringTok{ }\DecValTok{2}
+\NormalTok{df[}\DecValTok{21}\OperatorTok{:}\DecValTok{40}\NormalTok{, }\DecValTok{21}\OperatorTok{:}\DecValTok{31}\NormalTok{] =}\StringTok{ }\DecValTok{2}
+\NormalTok{df[}\DecValTok{41}\OperatorTok{:}\DecValTok{60}\NormalTok{, }\DecValTok{11}\OperatorTok{:}\DecValTok{20}\NormalTok{] =}\StringTok{ }\DecValTok{1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Perform PCA on the 60 observations and plot the first two principal
+  components' eigenvector. Use a different color to indicate the
+  observations in each of the three classes. If the three classes appear
+  separated in this plot, then continue on to part (c). If not, then
+  return to part (a) and modify the simulation so that there is greater
+  separation between the three classes. Do not continue to part (c)
+  until the three classes show at least some separation in the first two
+  principal component eigenvectors.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pca.out =}\StringTok{ }\KeywordTok{prcomp}\NormalTok{(df,}\DataTypeTok{scale=}\OtherTok{FALSE}\NormalTok{)}
+\KeywordTok{summary}\NormalTok{(pca.out)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Importance of components:
+##                            PC1      PC2     PC3     PC4     PC5     PC6
+## Standard deviation     44.0363 11.28484 3.41846 3.10740 2.92595 2.89325
+## Proportion of Variance  0.8776  0.05763 0.00529 0.00437 0.00387 0.00379
+## Cumulative Proportion   0.8776  0.93525 0.94054 0.94491 0.94879 0.95258
+##                            PC7     PC8     PC9    PC10    PC11   PC12
+## Standard deviation     2.80193 2.72648 2.60878 2.51853 2.47330 2.3038
+## Proportion of Variance 0.00355 0.00336 0.00308 0.00287 0.00277 0.0024
+## Cumulative Proportion  0.95613 0.95949 0.96257 0.96544 0.96821 0.9706
+##                           PC13    PC14    PC15    PC16    PC17    PC18
+## Standard deviation     2.23712 2.21400 2.08260 2.05373 1.96333 1.88713
+## Proportion of Variance 0.00226 0.00222 0.00196 0.00191 0.00174 0.00161
+## Cumulative Proportion  0.97288 0.97510 0.97706 0.97897 0.98071 0.98233
+##                           PC19    PC20    PC21    PC22    PC23    PC24
+## Standard deviation     1.82948 1.79938 1.70407 1.65008 1.61459 1.47585
+## Proportion of Variance 0.00151 0.00147 0.00131 0.00123 0.00118 0.00099
+## Cumulative Proportion  0.98384 0.98531 0.98662 0.98785 0.98903 0.99002
+##                           PC25    PC26    PC27    PC28    PC29    PC30
+## Standard deviation     1.45086 1.41511 1.37782 1.32437 1.25438 1.20086
+## Proportion of Variance 0.00095 0.00091 0.00086 0.00079 0.00071 0.00065
+## Cumulative Proportion  0.99097 0.99188 0.99274 0.99353 0.99424 0.99490
+##                           PC31    PC32    PC33    PC34    PC35    PC36
+## Standard deviation     1.17189 1.13165 1.06929 1.02472 0.97536 0.91078
+## Proportion of Variance 0.00062 0.00058 0.00052 0.00048 0.00043 0.00038
+## Cumulative Proportion  0.99552 0.99610 0.99661 0.99709 0.99752 0.99789
+##                           PC37    PC38    PC39    PC40    PC41    PC42
+## Standard deviation     0.83197 0.80705 0.75877 0.72987 0.70703 0.59184
+## Proportion of Variance 0.00031 0.00029 0.00026 0.00024 0.00023 0.00016
+## Cumulative Proportion  0.99821 0.99850 0.99876 0.99900 0.99923 0.99939
+##                           PC43    PC44    PC45    PC46    PC47    PC48
+## Standard deviation     0.56112 0.51788 0.49493 0.45432 0.35085 0.33294
+## Proportion of Variance 0.00014 0.00012 0.00011 0.00009 0.00006 0.00005
+## Cumulative Proportion  0.99953 0.99965 0.99976 0.99986 0.99991 0.99996
+##                           PC49    PC50
+## Standard deviation     0.23874 0.15594
+## Proportion of Variance 0.00003 0.00001
+## Cumulative Proportion  0.99999 1.00000
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# select and plot only the first two principal components}
+\KeywordTok{plot}\NormalTok{(pca.out}\OperatorTok{$}\NormalTok{x[,}\DecValTok{1}\OperatorTok{:}\DecValTok{2}\NormalTok{], }\DataTypeTok{col=}\DecValTok{1}\OperatorTok{:}\DecValTok{3}\NormalTok{, }\DataTypeTok{xlab=}\StringTok{"First principal component"}\NormalTok{, }\DataTypeTok{ylab=}\StringTok{"Second principal compnent"}\NormalTok{, }\DataTypeTok{pch=}\DecValTok{35}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{CW2_13154855_A_GUO_files/figure-latex/unnamed-chunk-39-1.pdf}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Perform K-means clustering of the observations with K = 3. How well do
+  the clusters that you obtained in K-means clustering compare to the
+  true class labels?
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{km.out3 <-}\StringTok{ }\KeywordTok{kmeans}\NormalTok{(df,}\DecValTok{3}\NormalTok{,}\DataTypeTok{nstart=}\DecValTok{20}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(df,}\DataTypeTok{col=}\NormalTok{(km.out3}\OperatorTok{$}\NormalTok{cluster),}\DataTypeTok{main=}\StringTok{"K-means clustering with K=3"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{CW2_13154855_A_GUO_files/figure-latex/unnamed-chunk-40-1.pdf}
+
+Hint: You can use the table() function in R to compare the true class
+labels to the class labels obtained by clustering. Be careful how you
+interpret the results: K-means clustering will arbitrarily number the
+clusters, so you cannot simply check whether the true class labels and
+clustering labels are the same.
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Perform K-means clustering with K = 2. Describe your results.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{km.out2 =}\StringTok{ }\KeywordTok{kmeans}\NormalTok{(df, }\DecValTok{2}\NormalTok{, }\DataTypeTok{nstart=}\DecValTok{20}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(df,}\DataTypeTok{col=}\NormalTok{(km.out2}\OperatorTok{$}\NormalTok{cluster),}\DataTypeTok{main=}\StringTok{"K-means clustering with K=2"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{CW2_13154855_A_GUO_files/figure-latex/unnamed-chunk-41-1.pdf}
+
+One of the cluster groups has now merged with another cluster group.
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  Now perform K-means clustering with K = 4, and describe your results.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{km.out4 <-}\StringTok{ }\KeywordTok{kmeans}\NormalTok{(df,}\DecValTok{4}\NormalTok{,}\DataTypeTok{nstart=}\DecValTok{20}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(df,}\DataTypeTok{col=}\NormalTok{(km.out4}\OperatorTok{$}\NormalTok{cluster),}\DataTypeTok{main=}\StringTok{"K-means clustering with K=4"}\NormalTok{, }\DataTypeTok{xlab=}\StringTok{""}\NormalTok{,}\DataTypeTok{ylab=}\StringTok{""}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{CW2_13154855_A_GUO_files/figure-latex/unnamed-chunk-42-1.pdf}
+(f) Now perform K-means clustering with K = 3 on the first two principal
+components, rather than on the raw data. That is, perform K-means
+clustering on the 60 × 2 matrix of which the first column is the first
+principal component's corresponding eigenvector, and the second column
+is the second principal component's corresponding eigenvector. Comment
+on the results.
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{6}
+\tightlist
+\item
+  Using the scale() function, perform K-means clustering with K = 3 on
+  the data after scaling each variable to have standard deviation one.
+  How do these results compare to those obtained in (c)? Explain.
+\end{enumerate}
+
+
+\end{document}
